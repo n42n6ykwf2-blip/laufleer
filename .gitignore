@@ -48,3 +48,9 @@ next-env.d.ts
 # namuna fayl commit qilinadi — unda faqat placeholder qiymatlar bor
 # (bu qator .env* dan KEYIN turishi shart — gitignore'da oxirgi mos shablon g'olib)
 !.env.local.example
+
+# agent skillari — mazmuni commit qilinmaydi, skills-lock.json yetarli.
+# Tiklash: npx skills experimental_install
+.agents/
+# bular absolyut symlinklar — boshqa kompyuterda buziladi
+.claude/skills/
