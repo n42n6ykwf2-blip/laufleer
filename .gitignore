@@ -41,3 +41,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+.env*
+
+# namuna fayl commit qilinadi — unda faqat placeholder qiymatlar bor
+# (bu qator .env* dan KEYIN turishi shart — gitignore'da oxirgi mos shablon g'olib)
+!.env.local.example
