@@ -1,0 +1,89 @@
+{
+  "app": {
+    "name": "Laufleer",
+    "tagline": "Restaurants entdecken, Tisch reservieren"
+  },
+  "nav": {
+    "home": "Startseite",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz",
+    "switchLanguage": "Sprache"
+  },
+  "discover": {
+    "heading": "Restaurants in Ihrer Nähe",
+    "subheading": "Wählen Sie ein Restaurant, um Menü und Reservierung zu sehen",
+    "empty": "Noch keine Restaurants verfügbar."
+  },
+  "restaurantCard": {
+    "viewMenu": "Menü ansehen"
+  },
+  "restaurantPage": {
+    "menu": "Menü",
+    "address": "Adresse",
+    "phone": "Telefon",
+    "openingHours": "Öffnungszeiten",
+    "reserve": "Tisch reservieren",
+    "notFound": "Restaurant nicht gefunden",
+    "closed": "Geschlossen"
+  },
+  "weekday": {
+    "mon": "Montag",
+    "tue": "Dienstag",
+    "wed": "Mittwoch",
+    "thu": "Donnerstag",
+    "fri": "Freitag",
+    "sat": "Samstag",
+    "sun": "Sonntag"
+  },
+  "bookingForm": {
+    "heading": "Tisch reservieren",
+    "restaurantLabel": "Restaurant",
+    "dateLabel": "Datum",
+    "timeLabel": "Uhrzeit",
+    "partySizeLabel": "Personen",
+    "nameLabel": "Name",
+    "namePlaceholder": "Vor- und Nachname",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "name@beispiel.de",
+    "contactHint": "Bitte Telefonnummer oder E-Mail angeben (mindestens eine).",
+    "notesLabel": "Anmerkungen (optional)",
+    "notesPlaceholder": "z. B. Kinderstuhl, Allergien, Anlass",
+    "submit": "Jetzt reservieren",
+    "submitting": "Wird gesendet …",
+    "consentHint": "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung der Reservierung zu.",
+    "errors": {
+      "nameRequired": "Bitte geben Sie Ihren Namen an.",
+      "contactRequired": "Bitte geben Sie Telefonnummer oder E-Mail an.",
+      "phoneInvalid": "Ungültige Telefonnummer.",
+      "emailInvalid": "Ungültige E-Mail-Adresse.",
+      "partySizeInvalid": "Personenzahl muss zwischen 1 und 20 liegen.",
+      "dateInPast": "Datum muss in der Zukunft liegen.",
+      "noTableAvailable": "Für diesen Zeitpunkt ist kein passender Tisch verfügbar. Bitte wählen Sie eine andere Zeit oder Personenzahl.",
+      "unknown": "Reservierung konnte nicht angelegt werden. Bitte versuchen Sie es erneut."
+    }
+  },
+  "success": {
+    "heading": "Reservierung bestätigt",
+    "subheading": "Wir freuen uns auf Ihren Besuch.",
+    "codeLabel": "Reservierungsnummer",
+    "restaurantLabel": "Restaurant",
+    "whenLabel": "Zeitpunkt",
+    "partyLabel": "Personen",
+    "backHome": "Zur Startseite"
+  },
+  "legal": {
+    "impressum": {
+      "heading": "Impressum",
+      "placeholder": "Angaben gemäß § 5 TMG werden hier eingetragen (Anbieterkennzeichnung, Kontaktdaten, USt-IdNr., verantwortlich für den Inhalt)."
+    },
+    "datenschutz": {
+      "heading": "Datenschutzerklärung",
+      "placeholder": "Datenschutzhinweise gemäß DSGVO Art. 13 werden hier eingetragen (Verantwortlicher, verarbeitete Daten, Rechtsgrundlagen, Speicherdauer, Rechte der betroffenen Personen)."
+    }
+  },
+  "cookies": {
+    "message": "Wir verwenden nur technisch notwendige Cookies. Es werden keine Tracking- oder Analyse-Cookies gesetzt.",
+    "acknowledge": "Verstanden"
+  }
+}

@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# namuna fayl commit qilinadi — unda faqat placeholder qiymatlar bor
+!.env.local.example
 
 # vercel
 .vercel

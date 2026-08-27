@@ -1,0 +1,89 @@
+{
+  "app": {
+    "name": "Laufleer",
+    "tagline": "Discover restaurants, reserve a table"
+  },
+  "nav": {
+    "home": "Home",
+    "impressum": "Legal notice",
+    "datenschutz": "Privacy policy",
+    "switchLanguage": "Language"
+  },
+  "discover": {
+    "heading": "Restaurants near you",
+    "subheading": "Choose a restaurant to view its menu and reserve a table",
+    "empty": "No restaurants available yet."
+  },
+  "restaurantCard": {
+    "viewMenu": "View menu"
+  },
+  "restaurantPage": {
+    "menu": "Menu",
+    "address": "Address",
+    "phone": "Phone",
+    "openingHours": "Opening hours",
+    "reserve": "Reserve a table",
+    "notFound": "Restaurant not found",
+    "closed": "Closed"
+  },
+  "weekday": {
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday",
+    "sat": "Saturday",
+    "sun": "Sunday"
+  },
+  "bookingForm": {
+    "heading": "Reserve a table",
+    "restaurantLabel": "Restaurant",
+    "dateLabel": "Date",
+    "timeLabel": "Time",
+    "partySizeLabel": "Party size",
+    "nameLabel": "Name",
+    "namePlaceholder": "First and last name",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "contactHint": "Please provide phone or email (at least one).",
+    "notesLabel": "Notes (optional)",
+    "notesPlaceholder": "e.g. high chair, allergies, occasion",
+    "submit": "Reserve now",
+    "submitting": "Sending …",
+    "consentHint": "By submitting you agree to the processing of your data to handle the reservation.",
+    "errors": {
+      "nameRequired": "Please enter your name.",
+      "contactRequired": "Please enter a phone number or email.",
+      "phoneInvalid": "Invalid phone number.",
+      "emailInvalid": "Invalid email address.",
+      "partySizeInvalid": "Party size must be between 1 and 20.",
+      "dateInPast": "Date must be in the future.",
+      "noTableAvailable": "No suitable table is available at this time. Please choose another time or party size.",
+      "unknown": "Could not create reservation. Please try again."
+    }
+  },
+  "success": {
+    "heading": "Reservation confirmed",
+    "subheading": "We look forward to your visit.",
+    "codeLabel": "Reservation code",
+    "restaurantLabel": "Restaurant",
+    "whenLabel": "When",
+    "partyLabel": "Guests",
+    "backHome": "Back to home"
+  },
+  "legal": {
+    "impressum": {
+      "heading": "Legal notice (Impressum)",
+      "placeholder": "Information required under § 5 TMG will be entered here (provider identification, contact details, VAT ID, responsible for content)."
+    },
+    "datenschutz": {
+      "heading": "Privacy policy",
+      "placeholder": "Data-protection information under GDPR Art. 13 will be entered here (controller, data processed, legal basis, retention, data-subject rights)."
+    }
+  },
+  "cookies": {
+    "message": "We only use strictly necessary cookies. No tracking or analytics cookies are set.",
+    "acknowledge": "Got it"
+  }
+}

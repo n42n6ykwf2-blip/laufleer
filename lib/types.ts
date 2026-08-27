@@ -1,0 +1,65 @@
+export type LocalizedText = { de?: string; en?: string };
+
+export type OpeningSlot = { open: string; close: string };
+export type WeekdayKey = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
+export type OpeningHours = Partial<Record<WeekdayKey, OpeningSlot[]>>;
+
+export interface Restaurant {
+  id: string;
+  slug: string;
+  name: string;
+  cuisine: string | null;
+  description: LocalizedText;
+  street: string | null;
+  house_number: string | null;
+  postal_code: string | null;
+  city: string | null;
+  country: string;
+  phone: string | null;
+  cover_image_url: string | null;
+  opening_hours: OpeningHours;
+  timezone: string;
+  created_at: string;
+}
+
+export interface MenuCategory {
+  id: string;
+  restaurant_id: string;
+  name: LocalizedText;
+  sort_order: number;
+}
+
+export interface MenuItem {
+  id: string;
+  restaurant_id: string;
+  category_id: string;
+  name: LocalizedText;
+  description: LocalizedText;
+  price_cents: number;
+  currency: string;
+  image_url: string | null;
+  is_available: boolean;
+  sort_order: number;
+}
+
+export interface RestaurantTable {
+  id: string;
+  restaurant_id: string;
+  label: string;
+  capacity: number;
+}
+
+export interface Reservation {
+  id: string;
+  restaurant_id: string;
+  table_id: string | null;
+  guest_name: string;
+  guest_phone: string | null;
+  guest_email: string | null;
+  party_size: number;
+  reservation_at: string;
+  duration_min: number;
+  status: "pending" | "confirmed" | "cancelled";
+  notes: string | null;
+  created_at: string;
+}
