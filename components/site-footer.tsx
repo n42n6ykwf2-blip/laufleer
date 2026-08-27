@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 export async function SiteFooter() {
   const t = await getTranslations("nav");
   const app = await getTranslations("app");
+  const partner = await getTranslations("partner");
 
   return (
     <footer className="mt-20 border-t border-border/70">
@@ -19,6 +20,12 @@ export async function SiteFooter() {
           </div>
 
           <nav className="flex flex-col gap-3 text-sm sm:items-end">
+            <Link
+              href="/partner"
+              className="font-medium text-primary underline-offset-2 hover:underline"
+            >
+              {partner("nav")}
+            </Link>
             <Link
               href="/impressum"
               className="text-muted-foreground transition-colors hover:text-foreground"

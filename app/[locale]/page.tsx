@@ -3,6 +3,8 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { RestaurantCard } from "@/components/restaurant-card";
 import { RestaurantFilters } from "@/components/restaurant-filters";
 import { DemoNotice } from "@/components/demo-notice";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion-primitives";
 import { ALL_FEATURES, type Restaurant } from "@/lib/types";
 import type { Locale } from "@/i18n/routing";
@@ -98,6 +100,9 @@ export default async function HomePage({
   ].sort() as string[];
 
   const resultLabel = t("resultCount", { count: restaurants.length });
+  const hasFilters = Boolean(
+    sp.city || sp.cuisine || sp.price || sp.features || sp.q?.trim()
+  );
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8 pb-4 sm:px-6 sm:pt-12">
@@ -134,9 +139,26 @@ export default async function HomePage({
       {loadError ? (
         <p className="mt-10 text-sm text-destructive">{t("loadError")}</p>
       ) : restaurants.length === 0 ? (
-        <div className="mt-16 text-center">
-          <p className="font-heading text-xl font-medium">{t("empty")}</p>
-          <p className="mt-2 text-sm text-muted-foreground">{t("emptyHint")}</p>
+        <div className="mt-16 mb-8 text-center">
+          {hasFilters ? (
+            <>
+              <p className="font-heading text-xl font-medium">{t("empty")}</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {t("emptyHint")}
+              </p>
+            </>
+          ) : (
+            // Platformada hali bironta tasdiqlangan restoran yo'q
+            <div className="mx-auto max-w-md">
+              <p className="font-heading text-xl font-medium">{t("noneYet")}</p>
+              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
+                {t("noneYetHint")}
+              </p>
+              <Button asChild className="mt-6 h-11">
+                <Link href="/partner">{t("noneYetCta")}</Link>
+              </Button>
+            </div>
+          )}
         </div>
       ) : (
         <Stagger className="mt-7 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
