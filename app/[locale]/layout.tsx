@@ -51,6 +51,14 @@ export async function generateMetadata({
       template: `%s — ${t("name")}`,
     },
     description: t("description"),
+    // Loyiha ishga tushmaguncha qidiruv tizimlariga yopiq.
+    // Ishga tushirishda bu blokni va app/robots.ts ni yangilash kerak.
+    robots: {
+      index: false,
+      follow: false,
+      nocache: true,
+      googleBot: { index: false, follow: false },
+    },
   };
 }
 

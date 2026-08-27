@@ -5,6 +5,7 @@ import { Check } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { DemoNotice } from "@/components/demo-notice";
 import { FadeIn } from "@/components/motion-primitives";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/format";
@@ -65,9 +66,15 @@ export default async function BookingSuccessPage({
         </p>
       </FadeIn>
 
-      {/* Rezervatsiya kodi — sahifadagi eng muhim ma'lumot */}
+      {/* Demo ogohlantirishi kodidan OLDIN — foydalanuvchi buni
+          haqiqiy rezervatsiya deb o'ylamasligi kerak */}
+      <FadeIn delay={0.06} className="mt-7">
+        <DemoNotice variant="successWarning" />
+      </FadeIn>
+
+      {/* Rezervatsiya kodi */}
       {code ? (
-        <FadeIn delay={0.1} className="mt-9">
+        <FadeIn delay={0.12} className="mt-7">
           <div className="rounded-lg border border-border bg-card p-5">
             <p className="eyebrow">{t("codeLabel")}</p>
             <p className="mt-2 font-mono text-3xl font-semibold tracking-[0.18em] tabular-nums">

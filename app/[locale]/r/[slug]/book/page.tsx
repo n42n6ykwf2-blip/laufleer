@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { BookingForm } from "@/components/booking-form";
+import { DemoNotice } from "@/components/demo-notice";
 import { FadeIn } from "@/components/motion-primitives";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Locale } from "@/i18n/routing";
@@ -51,6 +52,10 @@ export default async function BookPage({
         <h1 className="mt-2 font-heading text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
           {t("heading")}
         </h1>
+      </FadeIn>
+
+      <FadeIn delay={0.04} className="mb-8">
+        <DemoNotice variant="bookingWarning" />
       </FadeIn>
 
       <FadeIn delay={0.06}>

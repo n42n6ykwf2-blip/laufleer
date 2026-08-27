@@ -9,6 +9,13 @@
     "impressum": "Legal notice",
     "datenschutz": "Privacy policy"
   },
+  "demo": {
+    "badge": "Demo",
+    "title": "Demo version",
+    "notice": "Laufleer is not yet in operation. All restaurants shown are sample data.",
+    "bookingWarning": "This is a demo application. Your details are not sent to any restaurant — no valid reservation is created.",
+    "successWarning": "This confirmation is part of a demo. No table has been reserved at a real restaurant."
+  },
   "discover": {
     "eyebrow": "Restaurants in Germany",
     "heading": "Eat well, book simply",
@@ -120,11 +127,13 @@
   "legal": {
     "impressum": {
       "heading": "Legal notice (Impressum)",
-      "placeholder": "Information required under § 5 TMG will be entered here (provider identification, contact details, VAT ID, responsible for content)."
+      "placeholder": "Laufleer is under development and is not in operation. No services are offered and no contracts are concluded. The details required under § 5 TMG (provider, contact, VAT ID, person responsible for content) will be added before launch."
     },
     "datenschutz": {
       "heading": "Privacy policy",
-      "placeholder": "Data-protection information under GDPR Art. 13 will be entered here (controller, data processed, legal basis, retention, data-subject rights)."
+      "placeholder": "Laufleer is a demo application under development. No analytics or tracking services are used; only strictly necessary cookies are set. Data entered in the reservation form is stored for testing purposes only, in a database inside the EU (Frankfurt am Main), and is not forwarded to any restaurant.",
+      "warning": "Please do not enter real personal data.",
+      "later": "The full information required under GDPR Art. 13 will be added before launch."
     }
   },
   "cookies": {

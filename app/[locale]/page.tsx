@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { RestaurantCard } from "@/components/restaurant-card";
 import { RestaurantFilters } from "@/components/restaurant-filters";
+import { DemoNotice } from "@/components/demo-notice";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion-primitives";
 import { ALL_FEATURES, type Restaurant } from "@/lib/types";
 import type { Locale } from "@/i18n/routing";
@@ -42,30 +43,48 @@ export default async function HomePage({
     // Filtr ro'yxatlari uchun barcha shahar/oshxona qiymatlari
     const facetsPromise = supabase.from("restaurants").select("city, cuisine");
 
-    let query = supabase.from("restaurants").select("*");
-
-    if (sp.city) query = query.eq("city", sp.city);
-    if (sp.cuisine) query = query.eq("cuisine", sp.cuisine);
-    if (sp.price) {
-      const lvl = Number(sp.price);
-      if (Number.isInteger(lvl) && lvl >= 1 && lvl <= 4) {
-        query = query.eq("price_level", lvl);
+    /**
+     * `advanced` — 0003 migratsiyasi qo'shadigan ustunlarga tayanadigan filtrlar.
+     * Kod migratsiyadan oldin deploy bo'lishi mumkin, shuning uchun ular
+     * ishlamasa, qolgan filtrlar bilan qayta urinib ko'ramiz.
+     */
+    const build = (advanced: boolean) => {
+      let q = supabase.from("restaurants").select("*");
+      if (sp.city) q = q.eq("city", sp.city);
+      if (sp.cuisine) q = q.eq("cuisine", sp.cuisine);
+      if (sp.q?.trim()) {
+        const term = sp.q.trim().replace(/[%,()]/g, "");
+        if (term) q = q.or(`name.ilike.%${term}%,city.ilike.%${term}%`);
       }
-    }
-    const wanted = (sp.features ?? "").split(",").filter(Boolean);
-    if (wanted.length) query = query.contains("features", wanted);
-    if (sp.q?.trim()) {
-      const term = sp.q.trim().replace(/[%,()]/g, "");
-      if (term) query = query.or(`name.ilike.%${term}%,city.ilike.%${term}%`);
-    }
+      if (advanced) {
+        const lvl = Number(sp.price);
+        if (sp.price && Number.isInteger(lvl) && lvl >= 1 && lvl <= 4) {
+          q = q.eq("price_level", lvl);
+        }
+        const wanted = (sp.features ?? "").split(",").filter(Boolean);
+        if (wanted.length) q = q.contains("features", wanted);
+      }
+      return q.order("name");
+    };
 
-    const [{ data, error }, { data: facets }] = await Promise.all([
-      query.order("name"),
+    const [first, { data: facets }] = await Promise.all([
+      build(true),
       facetsPromise,
     ]);
-    if (error) throw error;
 
-    restaurants = (data ?? []) as Restaurant[];
+    let rows = first.data;
+    if (first.error) {
+      // 42703 = "column does not exist" — migratsiya hali ishga tushmagan
+      if (first.error.code === "42703") {
+        const retry = await build(false);
+        if (retry.error) throw retry.error;
+        rows = retry.data;
+      } else {
+        throw first.error;
+      }
+    }
+
+    restaurants = (rows ?? []) as Restaurant[];
     allForFacets = (facets ?? []) as Pick<Restaurant, "city" | "cuisine">[];
   } catch {
     loadError = true;
@@ -93,8 +112,12 @@ export default async function HomePage({
         </p>
       </FadeIn>
 
+      <FadeIn delay={0.06} className="mt-7 max-w-2xl">
+        <DemoNotice />
+      </FadeIn>
+
       {/* Filtrlar */}
-      <FadeIn delay={0.08} className="mt-9 sm:mt-11">
+      <FadeIn delay={0.1} className="mt-9 sm:mt-11">
         <RestaurantFilters
           cities={cities}
           cuisines={cuisines}

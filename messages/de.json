@@ -9,6 +9,13 @@
     "impressum": "Impressum",
     "datenschutz": "Datenschutz"
   },
+  "demo": {
+    "badge": "Demo",
+    "title": "Demo-Version",
+    "notice": "Laufleer ist noch nicht im Betrieb. Alle gezeigten Restaurants sind Beispieldaten.",
+    "bookingWarning": "Dies ist eine Demo-Anwendung. Ihre Eingaben werden an kein Restaurant weitergeleitet — es entsteht keine gültige Reservierung.",
+    "successWarning": "Diese Bestätigung gehört zu einer Demo. Es wurde kein Tisch in einem echten Restaurant reserviert."
+  },
   "discover": {
     "eyebrow": "Restaurants in Deutschland",
     "heading": "Gut essen, einfach reservieren",
@@ -120,11 +127,13 @@
   "legal": {
     "impressum": {
       "heading": "Impressum",
-      "placeholder": "Angaben gemäß § 5 TMG werden hier eingetragen (Anbieterkennzeichnung, Kontaktdaten, USt-IdNr., verantwortlich für den Inhalt)."
+      "placeholder": "Laufleer befindet sich in der Entwicklung und ist nicht in Betrieb. Es werden keine Dienstleistungen angeboten und keine Verträge geschlossen. Die nach § 5 TMG erforderlichen Angaben (Anbieter, Kontakt, USt-IdNr., inhaltlich Verantwortlicher) werden vor der Inbetriebnahme ergänzt."
     },
     "datenschutz": {
       "heading": "Datenschutzerklärung",
-      "placeholder": "Datenschutzhinweise gemäß DSGVO Art. 13 werden hier eingetragen (Verantwortlicher, verarbeitete Daten, Rechtsgrundlagen, Speicherdauer, Rechte der betroffenen Personen)."
+      "placeholder": "Laufleer ist eine Demo-Anwendung in der Entwicklung. Es werden keine Analyse- oder Tracking-Dienste eingesetzt; gesetzt werden ausschließlich technisch notwendige Cookies. Über das Reservierungsformular eingegebene Daten werden allein zu Testzwecken in einer Datenbank innerhalb der EU (Frankfurt am Main) gespeichert und an kein Restaurant weitergeleitet.",
+      "warning": "Bitte geben Sie keine echten personenbezogenen Daten ein.",
+      "later": "Die vollständigen Hinweise nach Art. 13 DSGVO werden vor der Inbetriebnahme ergänzt."
     }
   },
   "cookies": {
