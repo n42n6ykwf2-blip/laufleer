@@ -12,43 +12,44 @@ export function MenuSection({ categories, items, locale }: Props) {
   const grouped = categories
     .slice()
     .sort((a, b) => a.sort_order - b.sort_order)
-    .map((cat) => ({
-      category: cat,
+    .map((category) => ({
+      category,
       items: items
-        .filter((i) => i.category_id === cat.id && i.is_available)
+        .filter((i) => i.category_id === category.id && i.is_available)
         .sort((a, b) => a.sort_order - b.sort_order),
     }))
     .filter((g) => g.items.length > 0);
 
-  if (grouped.length === 0) {
-    return null;
-  }
+  if (grouped.length === 0) return null;
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       {grouped.map(({ category, items }) => (
         <section key={category.id}>
-          <h3 className="text-xl font-semibold mb-4 border-b border-border pb-2">
+          <h3 className="eyebrow border-b border-border/70 pb-2.5">
             {localizedText(category.name, locale)}
           </h3>
-          <ul className="divide-y divide-border">
+
+          <ul className="mt-1">
             {items.map((item) => (
-              <li key={item.id} className="py-4 flex gap-4 items-start">
-                <div className="flex-1">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <p className="font-medium">
-                      {localizedText(item.name, locale)}
-                    </p>
-                    <p className="whitespace-nowrap font-semibold text-primary">
-                      {formatPrice(item.price_cents, locale, item.currency)}
-                    </p>
-                  </div>
+              <li
+                key={item.id}
+                className="flex items-baseline gap-4 border-b border-border/40 py-4 last:border-0"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-heading text-lg leading-snug font-medium">
+                    {localizedText(item.name, locale)}
+                  </p>
                   {localizedText(item.description, locale) ? (
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       {localizedText(item.description, locale)}
                     </p>
                   ) : null}
                 </div>
+
+                <p className="shrink-0 text-sm font-medium tabular-nums">
+                  {formatPrice(item.price_cents, locale, item.currency)}
+                </p>
               </li>
             ))}
           </ul>

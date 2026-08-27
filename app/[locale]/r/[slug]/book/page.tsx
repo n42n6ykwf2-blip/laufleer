@@ -1,8 +1,22 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { BookingForm } from "@/components/booking-form";
+import { FadeIn } from "@/components/motion-primitives";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Locale } from "@/i18n/routing";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "bookingForm" });
+  return { title: t("heading") };
+}
 
 export default async function BookPage({
   params,
@@ -23,15 +37,29 @@ export default async function BookPage({
   if (!restaurant) notFound();
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10">
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">{t("heading")}</h1>
-      </header>
-      <BookingForm
-        restaurantId={restaurant.id}
-        restaurantName={restaurant.name}
-        restaurantSlug={restaurant.slug}
-      />
+    <div className="mx-auto max-w-2xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10">
+      <Link
+        href={`/r/${restaurant.slug}`}
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="size-4" />
+        {restaurant.name}
+      </Link>
+
+      <FadeIn as="header" className="mt-6 mb-9">
+        <p className="eyebrow">{t("eyebrow")}</p>
+        <h1 className="mt-2 font-heading text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
+          {t("heading")}
+        </h1>
+      </FadeIn>
+
+      <FadeIn delay={0.06}>
+        <BookingForm
+          restaurantId={restaurant.id}
+          restaurantName={restaurant.name}
+          restaurantSlug={restaurant.slug}
+        />
+      </FadeIn>
     </div>
   );
 }

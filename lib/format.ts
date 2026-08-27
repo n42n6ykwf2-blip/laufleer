@@ -35,6 +35,12 @@ export function formatDate(input: string | Date, locale: Locale): string {
   return format(zoned, pattern, { locale: dateFnsLocale[locale] });
 }
 
+/** 2 → "€€" (4 tadan, faollari to'q rangda ko'rsatiladi) */
+export function priceLevelSymbol(level: number | null): string {
+  if (!level || level < 1) return "";
+  return "€".repeat(Math.min(level, 4));
+}
+
 export function localizedText(
   value: unknown,
   locale: Locale,

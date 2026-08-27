@@ -4,6 +4,23 @@ export type OpeningSlot = { open: string; close: string };
 export type WeekdayKey = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
 export type OpeningHours = Partial<Record<WeekdayKey, OpeningSlot[]>>;
 
+export type RestaurantFeature =
+  | "terrace"
+  | "vegan_options"
+  | "family_friendly"
+  | "wheelchair_accessible"
+  | "bar"
+  | "groups";
+
+export const ALL_FEATURES: RestaurantFeature[] = [
+  "terrace",
+  "vegan_options",
+  "family_friendly",
+  "wheelchair_accessible",
+  "bar",
+  "groups",
+];
+
 export interface Restaurant {
   id: string;
   slug: string;
@@ -14,11 +31,14 @@ export interface Restaurant {
   house_number: string | null;
   postal_code: string | null;
   city: string | null;
+  neighborhood: string | null;
   country: string;
   phone: string | null;
   cover_image_url: string | null;
   opening_hours: OpeningHours;
   timezone: string;
+  price_level: number | null;
+  features: RestaurantFeature[];
   created_at: string;
 }
 

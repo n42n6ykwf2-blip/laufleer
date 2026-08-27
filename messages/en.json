@@ -1,18 +1,53 @@
 {
   "app": {
     "name": "Laufleer",
-    "tagline": "Discover restaurants, reserve a table"
+    "tagline": "Reserve a table",
+    "description": "Discover restaurants across Germany, browse the menu and reserve a table in a few steps."
   },
   "nav": {
     "home": "Home",
     "impressum": "Legal notice",
-    "datenschutz": "Privacy policy",
-    "switchLanguage": "Language"
+    "datenschutz": "Privacy policy"
   },
   "discover": {
-    "heading": "Restaurants near you",
-    "subheading": "Choose a restaurant to view its menu and reserve a table",
-    "empty": "No restaurants available yet."
+    "eyebrow": "Restaurants in Germany",
+    "heading": "Eat well, book simply",
+    "subheading": "Browse the menu, find a free table and reserve in under a minute — no phone call, no account.",
+    "resultCount": "{count, plural, =0 {No restaurants} =1 {1 restaurant} other {# restaurants}}",
+    "empty": "No restaurants found.",
+    "emptyHint": "Try fewer filters or a different search term.",
+    "resetFilters": "Reset filters",
+    "loadError": "The restaurants could not be loaded."
+  },
+  "filters": {
+    "title": "Filters",
+    "open": "Filters",
+    "searchLabel": "Search",
+    "searchPlaceholder": "Search restaurant or city",
+    "city": "City",
+    "allCities": "All cities",
+    "cuisine": "Cuisine",
+    "allCuisines": "All cuisines",
+    "price": "Price",
+    "allPrices": "All prices",
+    "features": "Features",
+    "apply": "Show results",
+    "reset": "Reset",
+    "activeCount": "{count, plural, =0 {} =1 {1 filter active} other {# filters active}}"
+  },
+  "features": {
+    "terrace": "Terrace",
+    "vegan_options": "Vegan dishes",
+    "family_friendly": "Family friendly",
+    "wheelchair_accessible": "Step-free access",
+    "bar": "Bar",
+    "groups": "Good for groups"
+  },
+  "priceLevel": {
+    "1": "Budget",
+    "2": "Mid-range",
+    "3": "Upscale",
+    "4": "Fine dining"
   },
   "restaurantCard": {
     "viewMenu": "View menu"
@@ -22,9 +57,12 @@
     "address": "Address",
     "phone": "Phone",
     "openingHours": "Opening hours",
+    "features": "Features",
     "reserve": "Reserve a table",
+    "backToList": "All restaurants",
     "notFound": "Restaurant not found",
-    "closed": "Closed"
+    "closed": "Closed",
+    "today": "Today"
   },
   "weekday": {
     "mon": "Monday",
@@ -36,18 +74,22 @@
     "sun": "Sunday"
   },
   "bookingForm": {
+    "eyebrow": "Reservation",
     "heading": "Reserve a table",
     "restaurantLabel": "Restaurant",
+    "whenSection": "When would you like to come?",
+    "contactSection": "Your contact details",
     "dateLabel": "Date",
     "timeLabel": "Time",
-    "partySizeLabel": "Party size",
+    "partySizeLabel": "Guests",
     "nameLabel": "Name",
     "namePlaceholder": "First and last name",
     "phoneLabel": "Phone",
     "emailLabel": "Email",
     "emailPlaceholder": "name@example.com",
-    "contactHint": "Please provide phone or email (at least one).",
-    "notesLabel": "Notes (optional)",
+    "contactHint": "Phone or email is enough — either one works.",
+    "notesLabel": "Notes",
+    "notesOptional": "optional",
     "notesPlaceholder": "e.g. high chair, allergies, occasion",
     "submit": "Reserve now",
     "submitting": "Sending …",
@@ -55,22 +97,25 @@
     "errors": {
       "nameRequired": "Please enter your name.",
       "contactRequired": "Please enter a phone number or email.",
-      "phoneInvalid": "Invalid phone number.",
-      "emailInvalid": "Invalid email address.",
+      "phoneInvalid": "This phone number is not valid.",
+      "emailInvalid": "This email address is not valid.",
       "partySizeInvalid": "Party size must be between 1 and 20.",
-      "dateInPast": "Date must be in the future.",
-      "noTableAvailable": "No suitable table is available at this time. Please choose another time or party size.",
-      "unknown": "Could not create reservation. Please try again."
+      "dateInPast": "Please choose a time in the future.",
+      "noTableAvailable": "No suitable table is free at that time. Please choose another time or party size.",
+      "unknown": "The reservation could not be created. Please try again."
     }
   },
   "success": {
-    "heading": "Reservation confirmed",
+    "eyebrow": "Confirmed",
+    "heading": "Your table is reserved",
     "subheading": "We look forward to your visit.",
     "codeLabel": "Reservation code",
+    "codeHint": "Please make a note of this code.",
     "restaurantLabel": "Restaurant",
     "whenLabel": "When",
     "partyLabel": "Guests",
-    "backHome": "Back to home"
+    "backHome": "More restaurants",
+    "viewRestaurant": "Back to restaurant"
   },
   "legal": {
     "impressum": {

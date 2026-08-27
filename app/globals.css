@@ -1,45 +1,222 @@
 @import "tailwindcss";
 @import "react-phone-number-input/style.css";
-@import "react-day-picker/style.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   Laufleer — iliq editorial palitra
+   Qog'oz foni, chuqur siyoh matn, terrakota urg'u.
+   Gradient, shisha effekt va neon ranglar ATAYIN ishlatilmaydi.
+   ============================================================ */
 
 :root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
-  --muted: #f5f5f4;
-  --muted-foreground: #57534e;
-  --card: #ffffff;
-  --border: #e7e5e4;
-  --primary: #c2410c;
-  --primary-foreground: #ffffff;
-  --ring: #ea580c;
-  --destructive: #b91c1c;
+  /* Asosiy sirtlar */
+  --background: oklch(0.974 0.011 84);        /* iliq qog'oz */
+  --foreground: oklch(0.243 0.015 58);        /* chuqur iliq siyoh */
+  --card: oklch(0.995 0.005 85);              /* deyarli oq, iliq */
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.995 0.005 85);
+  --popover-foreground: var(--foreground);
+
+  /* Urg'u — terrakota */
+  --primary: oklch(0.523 0.132 40);
+  --primary-foreground: oklch(0.985 0.008 85);
+
+  /* Ikkilamchi — issiq qum */
+  --secondary: oklch(0.936 0.016 80);
+  --secondary-foreground: oklch(0.33 0.03 50);
+
+  --muted: oklch(0.944 0.014 82);
+  --muted-foreground: oklch(0.505 0.022 62);
+
+  --accent: oklch(0.928 0.026 72);
+  --accent-foreground: oklch(0.33 0.05 45);
+
+  --destructive: oklch(0.505 0.164 27);
+
+  --border: oklch(0.892 0.014 78);
+  --input: oklch(0.878 0.016 76);
+  --ring: oklch(0.523 0.132 40);
+
+  /* Editorial uslub uchun kamroq yumaloqlik */
+  --radius: 0.375rem;
+
+  --chart-1: oklch(0.523 0.132 40);
+  --chart-2: oklch(0.62 0.09 62);
+  --chart-3: oklch(0.45 0.06 130);
+  --chart-4: oklch(0.68 0.11 85);
+  --chart-5: oklch(0.38 0.05 30);
+
+  --sidebar: oklch(0.958 0.013 82);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+.dark {
+  --background: oklch(0.198 0.012 55);
+  --foreground: oklch(0.945 0.012 82);
+  --card: oklch(0.245 0.014 52);
+  --card-foreground: oklch(0.945 0.012 82);
+  --popover: oklch(0.245 0.014 52);
+  --popover-foreground: oklch(0.945 0.012 82);
+
+  --primary: oklch(0.665 0.135 44);
+  --primary-foreground: oklch(0.185 0.012 50);
+
+  --secondary: oklch(0.298 0.016 52);
+  --secondary-foreground: oklch(0.928 0.012 80);
+
+  --muted: oklch(0.292 0.014 52);
+  --muted-foreground: oklch(0.712 0.018 70);
+
+  --accent: oklch(0.322 0.028 48);
+  --accent-foreground: oklch(0.935 0.014 80);
+
+  --destructive: oklch(0.665 0.17 25);
+
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.665 0.135 44);
+
+  --sidebar: oklch(0.245 0.014 52);
+  --sidebar-foreground: oklch(0.945 0.012 82);
+  --sidebar-primary: oklch(0.665 0.135 44);
+  --sidebar-primary-foreground: oklch(0.185 0.012 50);
+  --sidebar-accent: oklch(0.322 0.028 48);
+  --sidebar-accent-foreground: oklch(0.935 0.014 80);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.665 0.135 44);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
   --color-card: var(--card);
-  --color-border: var(--border);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-ring: var(--ring);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Geist — matn, Fraunces — sarlavha */
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Sarlavhalar — Fraunces, optik o'lcham va biroz "wonk" bilan */
+  h1, h2, h3 {
+    @apply font-heading;
+    font-variation-settings: "SOFT" 12, "WONK" 1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 22%, transparent);
+  }
+
+  /* Mobil: iOS zoom qilmasligi uchun forma maydonlari 16px dan kichik emas */
+  @media (max-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-.PhoneInputInput {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 0.875rem;
-  padding: 0.5rem 0;
+@layer components {
+  /* Editorial ustki sarlavha — kichik, harflar orasi keng */
+  .eyebrow {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-muted-foreground;
+  }
+
+  /* Xalqaro telefon maydoni shadcn Input ko'rinishiga moslashtirilgan */
+  .PhoneInput {
+    @apply flex h-11 w-full items-center gap-2 rounded-lg border border-input bg-transparent px-3
+           transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50;
+  }
+
+  .PhoneInputInput {
+    @apply min-w-0 flex-1 border-0 bg-transparent text-base outline-none placeholder:text-muted-foreground sm:text-sm;
+  }
+
+  .PhoneInputCountry {
+    @apply flex items-center gap-1;
+  }
+
+  .PhoneInputCountrySelectArrow {
+    @apply opacity-50;
+  }
 }

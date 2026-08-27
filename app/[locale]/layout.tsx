@@ -1,23 +1,42 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Fraunces, Geist } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { CookieBanner } from "@/components/cookie-banner";
 import "../globals.css";
 
-const inter = Inter({
+// Sarlavhalar — o'zgaruvchan serif, optik o'lcham va "wonk" o'qi bilan
+const fraunces = Fraunces({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
+  variable: "--font-fraunces",
+  display: "swap",
+  axes: ["SOFT", "WONK", "opsz"],
+});
+
+// Matn — toza, zamonaviy sans
+const geist = Geist({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-geist",
   display: "swap",
 });
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f2e9" },
+    { media: "(prefers-color-scheme: dark)", color: "#221d19" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export async function generateMetadata({
   params,
@@ -27,8 +46,11 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "app" });
   return {
-    title: t("name"),
-    description: t("tagline"),
+    title: {
+      default: `${t("name")} — ${t("tagline")}`,
+      template: `%s — ${t("name")}`,
+    },
+    description: t("description"),
   };
 }
 
@@ -44,40 +66,14 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "nav" });
-  const app = await getTranslations({ locale, namespace: "app" });
 
   return (
-    <html lang={locale} className={inter.variable}>
-      <body className="min-h-screen font-sans antialiased flex flex-col">
+    <html lang={locale} className={`${fraunces.variable} ${geist.variable}`}>
+      <body className="flex min-h-dvh flex-col antialiased">
         <NextIntlClientProvider>
-          <header className="border-b border-border bg-card">
-            <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-              <Link
-                href="/"
-                className="font-semibold tracking-tight text-lg text-primary"
-              >
-                {app("name")}
-              </Link>
-              <LanguageSwitcher />
-            </div>
-          </header>
+          <SiteHeader />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-border bg-card mt-16">
-            <div className="mx-auto flex max-w-5xl flex-col gap-2 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-              <p>
-                &copy; {new Date().getFullYear()} {app("name")}
-              </p>
-              <nav className="flex gap-4">
-                <Link href="/impressum" className="hover:text-foreground">
-                  {t("impressum")}
-                </Link>
-                <Link href="/datenschutz" className="hover:text-foreground">
-                  {t("datenschutz")}
-                </Link>
-              </nav>
-            </div>
-          </footer>
+          <SiteFooter />
           <CookieBanner />
         </NextIntlClientProvider>
       </body>

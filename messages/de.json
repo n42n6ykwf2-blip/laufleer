@@ -1,30 +1,68 @@
 {
   "app": {
     "name": "Laufleer",
-    "tagline": "Restaurants entdecken, Tisch reservieren"
+    "tagline": "Tisch reservieren",
+    "description": "Restaurants in ganz Deutschland entdecken, Speisekarte ansehen und in wenigen Schritten einen Tisch reservieren."
   },
   "nav": {
     "home": "Startseite",
     "impressum": "Impressum",
-    "datenschutz": "Datenschutz",
-    "switchLanguage": "Sprache"
+    "datenschutz": "Datenschutz"
   },
   "discover": {
-    "heading": "Restaurants in Ihrer Nähe",
-    "subheading": "Wählen Sie ein Restaurant, um Menü und Reservierung zu sehen",
-    "empty": "Noch keine Restaurants verfügbar."
+    "eyebrow": "Restaurants in Deutschland",
+    "heading": "Gut essen, einfach reservieren",
+    "subheading": "Speisekarte ansehen, freien Tisch finden und in unter einer Minute reservieren — ohne Anruf, ohne Konto.",
+    "resultCount": "{count, plural, =0 {Keine Restaurants} =1 {1 Restaurant} other {# Restaurants}}",
+    "empty": "Keine Restaurants gefunden.",
+    "emptyHint": "Versuchen Sie es mit weniger Filtern oder einem anderen Suchbegriff.",
+    "resetFilters": "Filter zurücksetzen",
+    "loadError": "Die Restaurants konnten nicht geladen werden."
+  },
+  "filters": {
+    "title": "Filter",
+    "open": "Filter",
+    "searchLabel": "Suche",
+    "searchPlaceholder": "Restaurant oder Stadt suchen",
+    "city": "Stadt",
+    "allCities": "Alle Städte",
+    "cuisine": "Küche",
+    "allCuisines": "Alle Küchen",
+    "price": "Preis",
+    "allPrices": "Alle Preise",
+    "features": "Ausstattung",
+    "apply": "Ergebnisse anzeigen",
+    "reset": "Zurücksetzen",
+    "activeCount": "{count, plural, =0 {} =1 {1 Filter aktiv} other {# Filter aktiv}}"
+  },
+  "features": {
+    "terrace": "Terrasse",
+    "vegan_options": "Vegane Gerichte",
+    "family_friendly": "Familienfreundlich",
+    "wheelchair_accessible": "Barrierefrei",
+    "bar": "Bar",
+    "groups": "Für Gruppen"
+  },
+  "priceLevel": {
+    "1": "Günstig",
+    "2": "Mittel",
+    "3": "Gehoben",
+    "4": "Fine Dining"
   },
   "restaurantCard": {
-    "viewMenu": "Menü ansehen"
+    "viewMenu": "Speisekarte ansehen"
   },
   "restaurantPage": {
-    "menu": "Menü",
+    "menu": "Speisekarte",
     "address": "Adresse",
     "phone": "Telefon",
     "openingHours": "Öffnungszeiten",
+    "features": "Ausstattung",
     "reserve": "Tisch reservieren",
+    "backToList": "Alle Restaurants",
     "notFound": "Restaurant nicht gefunden",
-    "closed": "Geschlossen"
+    "closed": "Geschlossen",
+    "today": "Heute"
   },
   "weekday": {
     "mon": "Montag",
@@ -36,8 +74,11 @@
     "sun": "Sonntag"
   },
   "bookingForm": {
+    "eyebrow": "Reservierung",
     "heading": "Tisch reservieren",
     "restaurantLabel": "Restaurant",
+    "whenSection": "Wann möchten Sie kommen?",
+    "contactSection": "Ihre Kontaktdaten",
     "dateLabel": "Datum",
     "timeLabel": "Uhrzeit",
     "partySizeLabel": "Personen",
@@ -46,8 +87,9 @@
     "phoneLabel": "Telefon",
     "emailLabel": "E-Mail",
     "emailPlaceholder": "name@beispiel.de",
-    "contactHint": "Bitte Telefonnummer oder E-Mail angeben (mindestens eine).",
-    "notesLabel": "Anmerkungen (optional)",
+    "contactHint": "Telefonnummer oder E-Mail genügt — eines von beiden reicht uns.",
+    "notesLabel": "Anmerkungen",
+    "notesOptional": "optional",
     "notesPlaceholder": "z. B. Kinderstuhl, Allergien, Anlass",
     "submit": "Jetzt reservieren",
     "submitting": "Wird gesendet …",
@@ -55,22 +97,25 @@
     "errors": {
       "nameRequired": "Bitte geben Sie Ihren Namen an.",
       "contactRequired": "Bitte geben Sie Telefonnummer oder E-Mail an.",
-      "phoneInvalid": "Ungültige Telefonnummer.",
-      "emailInvalid": "Ungültige E-Mail-Adresse.",
-      "partySizeInvalid": "Personenzahl muss zwischen 1 und 20 liegen.",
-      "dateInPast": "Datum muss in der Zukunft liegen.",
-      "noTableAvailable": "Für diesen Zeitpunkt ist kein passender Tisch verfügbar. Bitte wählen Sie eine andere Zeit oder Personenzahl.",
-      "unknown": "Reservierung konnte nicht angelegt werden. Bitte versuchen Sie es erneut."
+      "phoneInvalid": "Diese Telefonnummer ist ungültig.",
+      "emailInvalid": "Diese E-Mail-Adresse ist ungültig.",
+      "partySizeInvalid": "Die Personenzahl muss zwischen 1 und 20 liegen.",
+      "dateInPast": "Bitte wählen Sie einen Zeitpunkt in der Zukunft.",
+      "noTableAvailable": "Für diesen Zeitpunkt ist kein passender Tisch frei. Bitte wählen Sie eine andere Uhrzeit oder Personenzahl.",
+      "unknown": "Die Reservierung konnte nicht angelegt werden. Bitte versuchen Sie es erneut."
     }
   },
   "success": {
-    "heading": "Reservierung bestätigt",
+    "eyebrow": "Bestätigt",
+    "heading": "Ihr Tisch ist reserviert",
     "subheading": "Wir freuen uns auf Ihren Besuch.",
     "codeLabel": "Reservierungsnummer",
+    "codeHint": "Bitte notieren Sie sich diese Nummer.",
     "restaurantLabel": "Restaurant",
     "whenLabel": "Zeitpunkt",
     "partyLabel": "Personen",
-    "backHome": "Zur Startseite"
+    "backHome": "Weitere Restaurants",
+    "viewRestaurant": "Zum Restaurant"
   },
   "legal": {
     "impressum": {
