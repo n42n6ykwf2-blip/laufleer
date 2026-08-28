@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ProfileForm } from "@/components/partner/profile-form";
 import { StatusCard } from "@/components/partner/status-card";
-import { SignOutButton } from "@/components/partner/sign-out-button";
 import { FadeIn } from "@/components/motion-primitives";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { WEEKDAYS, type RestaurantProfileInput } from "@/lib/validation/restaurant";
@@ -76,17 +75,11 @@ export default async function PartnerProfilePage({
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pt-8 pb-16 sm:px-6 sm:pt-12">
+    <div>
       <FadeIn as="header" className="mb-8">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            {t("heading")}
-          </h1>
-          <SignOutButton />
-        </div>
-        <p className="mt-1.5 text-sm text-muted-foreground">
-          {t("signedInAs")} {user.email}
-        </p>
+        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+          {t("heading")}
+        </h1>
       </FadeIn>
 
       <FadeIn delay={0.05} className="mb-9">

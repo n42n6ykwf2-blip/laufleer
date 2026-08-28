@@ -31,6 +31,14 @@
       "step3Title": "Wait for review",
       "step3Text": "We check the details. Once approved, your restaurant is publicly visible."
     },
+    "gate": {
+      "heading": "Access code",
+      "text": "This area is not public yet. Laufleer is in preparation and is currently not accepting registrations.",
+      "codeLabel": "Code",
+      "submit": "Continue",
+      "submitting": "Checking …",
+      "wrongCode": "This code is not valid."
+    },
     "signUp": {
       "heading": "Register your restaurant",
       "subheading": "First create an account. Restaurant details come in the next step.",
@@ -71,6 +79,88 @@
       "emailTaken": "An account already exists for this email address.",
       "tooManyAttempts": "Too many attempts. Please wait a moment.",
       "unknown": "That did not work. Please try again."
+    },
+    "panel": {
+      "profile": "Profile",
+      "menu": "Menu",
+      "tables": "Tables",
+      "reservations": "Reservations",
+      "loyalty": "Loyalty",
+      "needsProfileFirst": "Please create your restaurant profile first.",
+      "toProfile": "Go to profile"
+    },
+    "menu": {
+      "heading": "Menu",
+      "intro": "Create categories and add dishes to them.",
+      "addCategory": "Add category",
+      "categoryNameDe": "Category (German)",
+      "categoryNameEn": "Category (English)",
+      "categoryPlaceholder": "e.g. Starters",
+      "noCategories": "No categories yet.",
+      "addItem": "Add dish",
+      "itemNameDe": "Dish (German)",
+      "itemNameEn": "Dish (English)",
+      "itemDescDe": "Description (German)",
+      "itemDescEn": "Description (English)",
+      "price": "Price",
+      "available": "Available",
+      "noItems": "No dishes in this category yet.",
+      "save": "Save",
+      "saving": "Saving …",
+      "delete": "Delete",
+      "deleteCategoryConfirm": "Delete category with all its dishes?",
+      "deleteItemConfirm": "Delete this dish?",
+      "cancel": "Cancel"
+    },
+    "tables": {
+      "heading": "Tables",
+      "intro": "Add your tables with their seat counts. On booking, the smallest suitable free table is chosen automatically.",
+      "label": "Label",
+      "labelPlaceholder": "e.g. T1",
+      "capacity": "Seats",
+      "add": "Add table",
+      "noTables": "No tables yet. Without tables no reservations are possible.",
+      "totalSeats": "{count} tables, {seats} seats",
+      "deleteConfirm": "Delete this table?"
+    },
+    "reservations": {
+      "heading": "Reservations",
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "none": "No reservations.",
+      "guest": "Guest",
+      "when": "When",
+      "party": "Guests",
+      "table": "Table",
+      "contact": "Contact",
+      "notes": "Notes",
+      "markCompleted": "Mark as visited",
+      "markNoShow": "No show",
+      "cancel": "Cancel",
+      "cancelConfirm": "Cancel this reservation?",
+      "status": {
+        "pending": "Open",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "completed": "Visited",
+        "no_show": "No show"
+      },
+      "pointsAwarded": "{points} points credited."
+    },
+    "loyalty": {
+      "heading": "Loyalty programme",
+      "intro": "Award points for every visit. Guests collect per restaurant.",
+      "enabled": "Loyalty programme active",
+      "pointsPerVisit": "Points per visit",
+      "pointsPerVisitHint": "Credited automatically when you mark a reservation as visited.",
+      "save": "Save",
+      "saving": "Saving …",
+      "saved": "Saved.",
+      "members": "Members",
+      "noMembers": "No members yet. Points appear once you mark a reservation as visited.",
+      "points": "Points",
+      "lastVisit": "Last",
+      "disabledHint": "The loyalty programme is disabled. No points are awarded."
     },
     "profile": {
       "heading": "Restaurant profile",

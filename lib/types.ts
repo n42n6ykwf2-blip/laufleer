@@ -40,6 +40,47 @@ export interface Restaurant {
   price_level: number | null;
   features: RestaurantFeature[];
   created_at: string;
+  owner_id?: string | null;
+  status?: RestaurantStatus;
+  rejection_reason?: string | null;
+  loyalty_enabled?: boolean;
+  loyalty_points_per_visit?: number;
+}
+
+export type RestaurantStatus = "draft" | "pending" | "approved" | "rejected";
+
+export type ReservationStatus =
+  | "pending"
+  | "confirmed"
+  | "cancelled"
+  | "completed"
+  | "no_show";
+
+export interface LoyaltyAccount {
+  id: string;
+  email: string;
+  name: string | null;
+  phone: string | null;
+  created_at: string;
+}
+
+export interface LoyaltyBalance {
+  account_id: string;
+  restaurant_id: string;
+  points: number;
+  updated_at: string;
+  loyalty_accounts?: LoyaltyAccount;
+}
+
+export interface LoyaltyTransaction {
+  id: string;
+  account_id: string;
+  restaurant_id: string;
+  reservation_id: string | null;
+  points: number;
+  kind: "earned" | "redeemed" | "adjusted";
+  note: string | null;
+  created_at: string;
 }
 
 export interface MenuCategory {
@@ -79,7 +120,8 @@ export interface Reservation {
   party_size: number;
   reservation_at: string;
   duration_min: number;
-  status: "pending" | "confirmed" | "cancelled";
+  status: ReservationStatus;
   notes: string | null;
   created_at: string;
+  restaurant_tables?: { label: string; capacity: number } | null;
 }

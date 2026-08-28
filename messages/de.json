@@ -31,6 +31,14 @@
       "step3Title": "Prüfung abwarten",
       "step3Text": "Wir prüfen die Angaben. Nach Freigabe ist Ihr Restaurant öffentlich sichtbar."
     },
+    "gate": {
+      "heading": "Zugangscode",
+      "text": "Dieser Bereich ist noch nicht öffentlich. Laufleer befindet sich in Vorbereitung und nimmt derzeit keine Anmeldungen entgegen.",
+      "codeLabel": "Code",
+      "submit": "Weiter",
+      "submitting": "Wird geprüft …",
+      "wrongCode": "Dieser Code ist nicht gültig."
+    },
     "signUp": {
       "heading": "Restaurant anmelden",
       "subheading": "Sie legen zuerst ein Konto an. Die Angaben zum Restaurant folgen im nächsten Schritt.",
@@ -71,6 +79,88 @@
       "emailTaken": "Für diese E-Mail-Adresse gibt es bereits ein Konto.",
       "tooManyAttempts": "Zu viele Versuche. Bitte warten Sie einen Moment.",
       "unknown": "Das hat nicht geklappt. Bitte versuchen Sie es erneut."
+    },
+    "panel": {
+      "profile": "Profil",
+      "menu": "Speisekarte",
+      "tables": "Tische",
+      "reservations": "Reservierungen",
+      "loyalty": "Treueprogramm",
+      "needsProfileFirst": "Bitte legen Sie zuerst Ihr Restaurantprofil an.",
+      "toProfile": "Zum Profil"
+    },
+    "menu": {
+      "heading": "Speisekarte",
+      "intro": "Legen Sie Kategorien an und ordnen Sie ihnen Gerichte zu.",
+      "addCategory": "Kategorie hinzufügen",
+      "categoryNameDe": "Kategorie (Deutsch)",
+      "categoryNameEn": "Kategorie (Englisch)",
+      "categoryPlaceholder": "z. B. Vorspeisen",
+      "noCategories": "Noch keine Kategorien angelegt.",
+      "addItem": "Gericht hinzufügen",
+      "itemNameDe": "Gericht (Deutsch)",
+      "itemNameEn": "Gericht (Englisch)",
+      "itemDescDe": "Beschreibung (Deutsch)",
+      "itemDescEn": "Beschreibung (Englisch)",
+      "price": "Preis",
+      "available": "Verfügbar",
+      "noItems": "Noch keine Gerichte in dieser Kategorie.",
+      "save": "Speichern",
+      "saving": "Wird gespeichert …",
+      "delete": "Löschen",
+      "deleteCategoryConfirm": "Kategorie mit allen Gerichten löschen?",
+      "deleteItemConfirm": "Dieses Gericht löschen?",
+      "cancel": "Abbrechen"
+    },
+    "tables": {
+      "heading": "Tische",
+      "intro": "Tragen Sie Ihre Tische mit Sitzplätzen ein. Bei einer Reservierung wird automatisch der kleinste passende freie Tisch gewählt.",
+      "label": "Bezeichnung",
+      "labelPlaceholder": "z. B. T1",
+      "capacity": "Plätze",
+      "add": "Tisch hinzufügen",
+      "noTables": "Noch keine Tische angelegt. Ohne Tische sind keine Reservierungen möglich.",
+      "totalSeats": "{count} Tische, {seats} Plätze",
+      "deleteConfirm": "Diesen Tisch löschen?"
+    },
+    "reservations": {
+      "heading": "Reservierungen",
+      "upcoming": "Bevorstehend",
+      "past": "Vergangen",
+      "none": "Keine Reservierungen.",
+      "guest": "Gast",
+      "when": "Zeitpunkt",
+      "party": "Personen",
+      "table": "Tisch",
+      "contact": "Kontakt",
+      "notes": "Anmerkungen",
+      "markCompleted": "Als besucht markieren",
+      "markNoShow": "Nicht erschienen",
+      "cancel": "Stornieren",
+      "cancelConfirm": "Diese Reservierung stornieren?",
+      "status": {
+        "pending": "Offen",
+        "confirmed": "Bestätigt",
+        "cancelled": "Storniert",
+        "completed": "Besucht",
+        "no_show": "Nicht erschienen"
+      },
+      "pointsAwarded": "{points} Punkte gutgeschrieben."
+    },
+    "loyalty": {
+      "heading": "Treueprogramm",
+      "intro": "Vergeben Sie Punkte für jeden Besuch. Gäste sammeln pro Restaurant.",
+      "enabled": "Treueprogramm aktiv",
+      "pointsPerVisit": "Punkte pro Besuch",
+      "pointsPerVisitHint": "Wird beim Markieren als „besucht\" automatisch gutgeschrieben.",
+      "save": "Speichern",
+      "saving": "Wird gespeichert …",
+      "saved": "Gespeichert.",
+      "members": "Mitglieder",
+      "noMembers": "Noch keine Mitglieder. Punkte entstehen, sobald Sie eine Reservierung als besucht markieren.",
+      "points": "Punkte",
+      "lastVisit": "Zuletzt",
+      "disabledHint": "Das Treueprogramm ist deaktiviert. Es werden keine Punkte vergeben."
     },
     "profile": {
       "heading": "Restaurantprofil",
