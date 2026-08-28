@@ -54,3 +54,8 @@ next-env.d.ts
 .agents/
 # bular absolyut symlinklar — boshqa kompyuterda buziladi
 .claude/skills/
+
+# Demo seed migratsiyalari ATAYIN olib tashlangan.
+# OneDrive ularni tiklab qo'ysa ham, repoga qaytmasin.
+supabase/migrations/0002_seed.sql
+supabase/migrations/0004_seed_more.sql
