@@ -37,7 +37,9 @@
       "codeLabel": "Code",
       "submit": "Weiter",
       "submitting": "Wird geprüft …",
-      "wrongCode": "Dieser Code ist nicht gültig."
+      "wrongCode": "Dieser Code ist nicht gültig.",
+      "lockedTitle": "Noch nicht verfügbar",
+      "lockedText": "Der Bereich für Restaurants ist derzeit geschlossen. Laufleer befindet sich in Vorbereitung und nimmt noch keine Anmeldungen entgegen."
     },
     "signUp": {
       "heading": "Restaurant anmelden",

@@ -37,7 +37,9 @@
       "codeLabel": "Code",
       "submit": "Continue",
       "submitting": "Checking …",
-      "wrongCode": "This code is not valid."
+      "wrongCode": "This code is not valid.",
+      "lockedTitle": "Not available yet",
+      "lockedText": "The area for restaurants is currently closed. Laufleer is in preparation and is not accepting registrations yet."
     },
     "signUp": {
       "heading": "Register your restaurant",
