@@ -7,6 +7,7 @@ import { BookingForm } from "@/components/booking-form";
 import { DemoNotice } from "@/components/demo-notice";
 import { FadeIn } from "@/components/motion-primitives";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentCustomer } from "@/lib/customer";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -37,6 +38,10 @@ export default async function BookPage({
 
   if (!restaurant) notFound();
 
+  // Hisob MAJBURIY EMAS — kirgan bo'lsa maydonlarni oldindan to'ldiramiz,
+  // kirmagan bo'lsa mehmon oqimi avvalgidek ishlaydi.
+  const { customer } = await getCurrentCustomer();
+
   return (
     <div className="mx-auto max-w-2xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10">
       <Link
@@ -63,6 +68,15 @@ export default async function BookPage({
           restaurantId={restaurant.id}
           restaurantName={restaurant.name}
           restaurantSlug={restaurant.slug}
+          guestDefaults={
+            customer
+              ? {
+                  name: `${customer.first_name} ${customer.last_name}`,
+                  email: customer.email,
+                  phone: customer.phone ?? "",
+                }
+              : undefined
+          }
         />
       </FadeIn>
     </div>

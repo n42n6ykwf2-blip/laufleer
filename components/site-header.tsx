@@ -2,14 +2,20 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { AccountMenu } from "@/components/account/account-menu";
+import { getCurrentCustomer } from "@/lib/customer";
 
 export async function SiteHeader() {
   const app = await getTranslations("app");
   const demo = await getTranslations("demo");
 
+  // Faqat to'liq mijoz profili bo'lsa "kirgan" deb hisoblaymiz.
+  // Restoran egasi ham auth foydalanuvchi, lekin uning yo'li /partner.
+  const { customer } = await getCurrentCustomer();
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur-[2px] supports-[backdrop-filter]:bg-background/85">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 px-4 sm:h-16 sm:px-6">
         <div className="flex min-w-0 items-center gap-2.5">
           <Link
             href="/"
@@ -33,7 +39,10 @@ export async function SiteHeader() {
           </Badge>
         </div>
 
-        <LanguageSwitcher />
+        <div className="flex shrink-0 items-center gap-1.5">
+          <AccountMenu signedIn={Boolean(customer)} />
+          <LanguageSwitcher />
+        </div>
       </div>
     </header>
   );

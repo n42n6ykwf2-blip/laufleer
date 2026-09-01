@@ -36,6 +36,16 @@ interface Props {
   restaurantId: string;
   restaurantName: string;
   restaurantSlug: string;
+  /**
+   * Kirgan mijoz uchun oldindan to'ldiriladigan qiymatlar.
+   * Mehmon oqimi o'zgarmaydi — bo'sh bo'lsa forma avvalgidek ishlaydi,
+   * to'ldirilgan bo'lsa ham foydalanuvchi maydonlarni tahrirlay oladi.
+   */
+  guestDefaults?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+  };
 }
 
 function isoTomorrow(): string {
@@ -50,6 +60,7 @@ export function BookingForm({
   restaurantId,
   restaurantName,
   restaurantSlug,
+  guestDefaults,
 }: Props) {
   const t = useTranslations("bookingForm");
   const router = useRouter();
@@ -63,9 +74,9 @@ export function BookingForm({
     ) as unknown as Resolver<ReservationInput>,
     defaultValues: {
       restaurantId,
-      guestName: "",
-      guestPhone: "",
-      guestEmail: "",
+      guestName: guestDefaults?.name ?? "",
+      guestPhone: guestDefaults?.phone ?? "",
+      guestEmail: guestDefaults?.email ?? "",
       partySize: 2,
       date: isoTomorrow(),
       time: "19:00",
