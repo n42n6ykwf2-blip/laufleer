@@ -70,5 +70,10 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  /**
+   * `auth` ATAYIN chetlab o'tiladi: /auth/callback marshruti locale'siz.
+   * Busiz next-intl uni /de/auth/callback ga yo'naltirib yuboradi va
+   * email tasdiqlash hamda parol tiklash havolalari buziladi.
+   */
+  matcher: ["/((?!api|auth|_next|_vercel|.*\\..*).*)"],
 };
