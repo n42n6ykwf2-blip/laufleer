@@ -74,8 +74,34 @@
       "cancel": "Cancel",
       "comingSoon": "Reservations and points will appear here once available."
     },
+    "forgot": {
+      "link": "Forgot your password?",
+      "heading": "Reset password",
+      "subheading": "Enter your email address. We will send you a link to set a new password.",
+      "email": "Email address",
+      "submit": "Send link",
+      "submitting": "Sending …",
+      "sentTitle": "Email on its way",
+      "sentText": "If an account exists for this address, we have sent an email with a link. The link is valid for one hour.",
+      "backToLogin": "Back to login"
+    },
+    "reset": {
+      "heading": "New password",
+      "subheading": "Choose a new password for your account.",
+      "password": "New password",
+      "passwordHint": "At least 8 characters.",
+      "passwordConfirm": "Repeat password",
+      "submit": "Save password",
+      "submitting": "Saving …",
+      "doneTitle": "Password changed",
+      "doneText": "You can now log in with your new password.",
+      "toAccount": "To my account",
+      "toPartner": "To restaurant profile"
+    },
     "errors": {
       "emailInvalid": "This email address is not valid.",
+      "sessionExpired": "The link has expired. Please request a new one.",
+      "samePassword": "The new password must differ from the old one.",
       "passwordRequired": "Please enter your password.",
       "passwordTooShort": "The password must be at least 8 characters.",
       "passwordMismatch": "The passwords do not match.",

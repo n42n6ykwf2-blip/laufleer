@@ -23,6 +23,7 @@ import { signIn } from "@/lib/actions/auth";
 export function SignInForm() {
   const t = useTranslations("partner.signIn");
   const te = useTranslations("partner.authErrors");
+  const tf = useTranslations("account.forgot");
   const router = useRouter();
   const reduce = useReducedMotion();
   const [serverError, setServerError] = React.useState<string | null>(null);
@@ -96,6 +97,15 @@ export function SignInForm() {
             </FormItem>
           )}
         />
+
+        <p className="-mt-1 text-sm">
+          <Link
+            href="/account/forgot?from=partner"
+            className="text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+          >
+            {tf("link")}
+          </Link>
+        </p>
 
         <AnimatePresence initial={false}>
           {serverError ? (

@@ -5,8 +5,8 @@ import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { AlertCircle, Loader2 } from "lucide-react";
-import { useRouter, Link } from "@/i18n/navigation";
+import { AlertCircle, Loader2, MailCheck } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,29 +18,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
-  customerSignInSchema,
-  type CustomerSignInInput,
-} from "@/lib/validation/customer";
-import { customerSignIn } from "@/lib/actions/customer";
+  passwordResetRequestSchema,
+  type PasswordResetRequestInput,
+} from "@/lib/validation/password-reset";
+import { requestPasswordReset } from "@/lib/actions/password-reset";
 
-export function CustomerSignInForm({
-  confirmFailed = false,
-}: {
-  confirmFailed?: boolean;
-}) {
-  const t = useTranslations("account.signIn2");
+export function ForgotPasswordForm({ backTo }: { backTo: string }) {
+  const t = useTranslations("account.forgot");
   const te = useTranslations("account.errors");
-  const tf = useTranslations("account.forgot");
-  const router = useRouter();
   const reduce = useReducedMotion();
+  const [sent, setSent] = React.useState(false);
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [pending, startTransition] = React.useTransition();
 
-  const form = useForm<CustomerSignInInput>({
+  const form = useForm<PasswordResetRequestInput>({
     resolver: zodResolver(
-      customerSignInSchema
-    ) as unknown as Resolver<CustomerSignInInput>,
-    defaultValues: { email: "", password: "" },
+      passwordResetRequestSchema
+    ) as unknown as Resolver<PasswordResetRequestInput>,
+    defaultValues: { email: "" },
   });
 
   const err = (message?: string) => {
@@ -55,29 +50,35 @@ export function CustomerSignInForm({
   const onSubmit = form.handleSubmit((values) => {
     setServerError(null);
     startTransition(async () => {
-      const result = await customerSignIn(values);
-      if (result.ok) {
-        router.push("/account");
-        router.refresh();
-      } else {
-        setServerError(result.error);
-      }
+      const result = await requestPasswordReset(values);
+      if (result.ok) setSent(true);
+      else setServerError(result.error);
     });
   });
+
+  if (sent) {
+    return (
+      <div className="rounded-lg border border-border bg-card p-6">
+        <MailCheck className="size-6 text-primary" />
+        <h2 className="mt-4 font-heading text-xl font-medium">
+          {t("sentTitle")}
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          {t("sentText")}
+        </p>
+        <Link
+          href={backTo}
+          className="mt-4 inline-block text-sm font-medium text-primary underline-offset-2 hover:underline"
+        >
+          {t("backToLogin")}
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>
       <form onSubmit={onSubmit} className="space-y-5">
-        {confirmFailed ? (
-          <div
-            role="alert"
-            className="flex gap-2.5 rounded-lg border border-destructive/30 bg-destructive/5 p-3.5 text-sm text-destructive"
-          >
-            <AlertCircle className="mt-0.5 size-4 shrink-0" />
-            <p>{t("confirmFailed")}</p>
-          </div>
-        ) : null}
-
         <FormField
           control={form.control}
           name="email"
@@ -97,34 +98,6 @@ export function CustomerSignInForm({
             </FormItem>
           )}
         />
-
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field, fieldState }) => (
-            <FormItem>
-              <FormLabel>{t("password")}</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  autoComplete="current-password"
-                  className="h-12 sm:h-11"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage>{err(fieldState.error?.message)}</FormMessage>
-            </FormItem>
-          )}
-        />
-
-        <p className="-mt-1 text-sm">
-          <Link
-            href="/account/forgot"
-            className="text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
-          >
-            {tf("link")}
-          </Link>
-        </p>
 
         <AnimatePresence initial={false}>
           {serverError ? (
@@ -161,13 +134,12 @@ export function CustomerSignInForm({
           )}
         </Button>
 
-        <p className="text-center text-sm text-muted-foreground">
-          {t("noAccount")}{" "}
+        <p className="text-center text-sm">
           <Link
-            href="/account/register"
-            className="font-medium text-primary underline-offset-2 hover:underline"
+            href={backTo}
+            className="text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
           >
-            {t("toSignUp")}
+            {t("backToLogin")}
           </Link>
         </p>
       </form>
