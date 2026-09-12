@@ -4,10 +4,15 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getOwnedRestaurant } from "@/lib/owner";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import {
+  generateRewardCode,
+  DEFAULT_LOYALTY_THRESHOLD,
+  DEFAULT_DISCOUNT_PERCENT,
+} from "@/lib/loyalty";
 import type { ReservationStatus } from "@/lib/types";
 
 export type StatusResult =
-  | { ok: true; pointsAwarded?: number }
+  | { ok: true; pointsAwarded?: number; rewardsCreated?: number }
   | { ok: false; error: string };
 
 const schema = z.object({
@@ -27,9 +32,12 @@ async function awardPoints(
   points: number,
   guestEmail: string | null,
   guestName: string | null,
-  guestPhone: string | null
-): Promise<number> {
-  if (!guestEmail || points <= 0) return 0;
+  guestPhone: string | null,
+  threshold: number,
+  discountPercent: number
+): Promise<{ points: number; rewardsCreated: number }> {
+  const none = { points: 0, rewardsCreated: 0 };
+  if (!guestEmail || points <= 0) return none;
 
   const admin = createSupabaseAdminClient();
   const email = guestEmail.trim().toLowerCase();
@@ -48,7 +56,7 @@ async function awardPoints(
       .insert({ email, name: guestName, phone: guestPhone })
       .select("id")
       .single();
-    if (error || !created) return 0;
+    if (error || !created) return none;
     accountId = created.id;
   }
 
@@ -60,28 +68,96 @@ async function awardPoints(
     points,
     kind: "earned",
   });
-  if (txError) return 0; // allaqachon berilgan
+  if (txError) return none; // allaqachon berilgan
 
-  // Balansni yangilaymiz
+  // TypeScript uchun aniqlik — yuqorida hisob yaratilgan yoki topilgan
+  if (!accountId) return none;
+  const account: string = accountId;
+
   const { data: balance } = await admin
     .from("loyalty_balances")
     .select("points")
-    .eq("account_id", accountId)
+    .eq("account_id", account)
     .eq("restaurant_id", restaurantId)
     .maybeSingle();
 
-  const next = (balance?.points ?? 0) + points;
+  let running = (balance?.points ?? 0) + points;
+
+  /**
+   * Aylana: chegara to'lgani sari chegirma yaratiladi va ball AYIRILADI.
+   * Ayirish shu bosqichda — tasdiqlashda emas. Shunda mijoz ishlatilmagan
+   * chegirma ushlab turganda ham yangi ball yig'a boshlaydi va hech narsa
+   * yo'qolmaydi.
+   *
+   * Halqa, chunki restoran bir tashrifga chegaradan ko'p ball qo'ysa
+   * bir vaqtda bir nechta chegirma tushishi mumkin. `safety` — cheksiz
+   * aylanishdan himoya.
+   */
+  let rewardsCreated = 0;
+  if (threshold > 0) {
+    for (let safety = 0; safety < 50 && running >= threshold; safety++) {
+      const inserted = await insertReward(
+        admin,
+        account,
+        restaurantId,
+        threshold,
+        discountPercent
+      );
+      if (!inserted) break; // kod to'qnashuvi tugamasa, balansni buzmaymiz
+
+      running -= threshold;
+      rewardsCreated++;
+
+      await admin.from("loyalty_transactions").insert({
+        account_id: account,
+        restaurant_id: restaurantId,
+        reservation_id: null,
+        points: -threshold,
+        kind: "redeemed",
+        note: `reward ${inserted}`,
+      });
+    }
+  }
+
   await admin.from("loyalty_balances").upsert(
     {
-      account_id: accountId,
+      account_id: account,
       restaurant_id: restaurantId,
-      points: next,
+      points: Math.max(0, running),
       updated_at: new Date().toISOString(),
     },
     { onConflict: "account_id,restaurant_id" }
   );
 
-  return points;
+  return { points, rewardsCreated };
+}
+
+/**
+ * Chegirma yozadi. Kod unique — to'qnashsa bir necha marta urinib ko'radi.
+ * Muvaffaqiyatda kodni qaytaradi, aks holda null.
+ */
+async function insertReward(
+  admin: ReturnType<typeof createSupabaseAdminClient>,
+  accountId: string,
+  restaurantId: string,
+  pointsSpent: number,
+  discountPercent: number
+): Promise<string | null> {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    const code = generateRewardCode();
+    const { error } = await admin.from("loyalty_rewards").insert({
+      account_id: accountId,
+      restaurant_id: restaurantId,
+      code,
+      discount_percent: discountPercent,
+      points_spent: pointsSpent,
+      status: "active",
+      expires_at: null, // muddatsiz
+    });
+    if (!error) return code;
+    if (error.code !== "23505") return null; // unique'dan boshqa xato
+  }
+  return null;
 }
 
 export async function updateReservationStatus(
@@ -112,22 +188,27 @@ export async function updateReservationStatus(
   if (error) return { ok: false, error: "unknown" };
 
   let pointsAwarded = 0;
+  let rewardsCreated = 0;
   if (
     status === "completed" &&
     restaurant.loyalty_enabled &&
     reservation.status !== "completed"
   ) {
-    pointsAwarded = await awardPoints(
+    const result = await awardPoints(
       reservation.id,
       restaurant.id,
       restaurant.loyalty_points_per_visit ?? 0,
       reservation.guest_email,
       reservation.guest_name,
-      reservation.guest_phone
+      reservation.guest_phone,
+      restaurant.loyalty_threshold ?? DEFAULT_LOYALTY_THRESHOLD,
+      restaurant.loyalty_discount_percent ?? DEFAULT_DISCOUNT_PERCENT
     );
+    pointsAwarded = result.points;
+    rewardsCreated = result.rewardsCreated;
   }
 
   revalidatePath("/partner/reservations", "page");
   revalidatePath("/partner/loyalty", "page");
-  return { ok: true, pointsAwarded };
+  return { ok: true, pointsAwarded, rewardsCreated };
 }

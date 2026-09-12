@@ -8,6 +8,8 @@ import type { ActionResult } from "@/lib/actions/menu";
 const settingsSchema = z.object({
   enabled: z.boolean(),
   pointsPerVisit: z.number().int().min(0).max(1000),
+  threshold: z.number().int().min(1).max(1000),
+  discountPercent: z.number().int().min(1).max(100),
 });
 
 export async function saveLoyaltySettings(
@@ -24,6 +26,8 @@ export async function saveLoyaltySettings(
     .update({
       loyalty_enabled: parsed.data.enabled,
       loyalty_points_per_visit: parsed.data.pointsPerVisit,
+      loyalty_threshold: parsed.data.threshold,
+      loyalty_discount_percent: parsed.data.discountPercent,
     })
     .eq("id", restaurant.id);
 

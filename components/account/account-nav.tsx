@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const ITEMS = [
   { href: "/account", key: "profile" },
   { href: "/account/bookings", key: "bookings" },
+  { href: "/account/points", key: "points" },
 ] as const;
 
 export function AccountNav() {

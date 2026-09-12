@@ -2,11 +2,17 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { LoyaltySettings } from "@/components/partner/loyalty-settings";
+import { RedeemRewardForm } from "@/components/partner/redeem-reward-form";
 import { FadeIn } from "@/components/motion-primitives";
 import { getOwnedRestaurant } from "@/lib/owner";
 import { formatDate } from "@/lib/format";
-import type { LoyaltyBalance } from "@/lib/types";
+import {
+  DEFAULT_LOYALTY_THRESHOLD,
+  DEFAULT_DISCOUNT_PERCENT,
+} from "@/lib/loyalty";
+import type { LoyaltyBalance, LoyaltyReward } from "@/lib/types";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -44,14 +50,30 @@ export default async function LoyaltyPage({
     );
   }
 
-  const { data } = await supabase
-    .from("loyalty_balances")
-    .select("*, loyalty_accounts(email, name)")
-    .eq("restaurant_id", restaurant.id)
-    .order("points", { ascending: false })
-    .limit(200);
+  const [membersRes, rewardsRes] = await Promise.all([
+    supabase
+      .from("loyalty_balances")
+      .select("*, loyalty_accounts(email, name)")
+      .eq("restaurant_id", restaurant.id)
+      .order("points", { ascending: false })
+      .limit(200),
+    supabase
+      .from("loyalty_rewards")
+      .select("*, loyalty_accounts!left(email, name)")
+      .eq("restaurant_id", restaurant.id)
+      .order("created_at", { ascending: false })
+      .limit(100),
+  ]);
 
-  const members = (data ?? []) as LoyaltyBalance[];
+  if (membersRes.error) {
+    console.error("[laufleer] a'zolar so'rovi xato:", membersRes.error);
+  }
+  if (rewardsRes.error) {
+    console.error("[laufleer] chegirmalar so'rovi xato:", rewardsRes.error);
+  }
+
+  const members = (membersRes.data ?? []) as LoyaltyBalance[];
+  const rewards = (rewardsRes.data ?? []) as LoyaltyReward[];
 
   return (
     <div>
@@ -64,14 +86,72 @@ export default async function LoyaltyPage({
         </p>
       </FadeIn>
 
-      <FadeIn delay={0.05} className="mb-9">
+      <FadeIn delay={0.05} className="mb-7">
         <LoyaltySettings
           enabled={Boolean(restaurant.loyalty_enabled)}
-          pointsPerVisit={restaurant.loyalty_points_per_visit ?? 10}
+          pointsPerVisit={restaurant.loyalty_points_per_visit ?? 1}
+          threshold={restaurant.loyalty_threshold ?? DEFAULT_LOYALTY_THRESHOLD}
+          discountPercent={
+            restaurant.loyalty_discount_percent ?? DEFAULT_DISCOUNT_PERCENT
+          }
         />
       </FadeIn>
 
-      <FadeIn delay={0.1}>
+      {/* Kodni tasdiqlash */}
+      <FadeIn delay={0.08} className="mb-9">
+        <RedeemRewardForm />
+      </FadeIn>
+
+      {/* Berilgan chegirmalar */}
+      <FadeIn delay={0.11} className="mb-9">
+        <h2 className="eyebrow mb-3">{t("rewardsTitle")}</h2>
+        {rewards.length === 0 ? (
+          <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
+            {t("noRewards")}
+          </p>
+        ) : (
+          <ul className="divide-y divide-border rounded-lg border border-border bg-card">
+            {rewards.map((r) => (
+              <li
+                key={r.id}
+                className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3"
+              >
+                <div className="min-w-0">
+                  <span className="font-mono text-sm tracking-widest">
+                    {r.code}
+                  </span>
+                  <span className="ml-2.5 text-sm text-muted-foreground">
+                    {r.discount_percent}%
+                  </span>
+                  {r.loyalty_accounts ? (
+                    <p className="truncate text-xs text-muted-foreground">
+                      {r.loyalty_accounts.name || r.loyalty_accounts.email}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="flex items-center gap-2.5">
+                  {r.status === "redeemed" && r.redeemed_at ? (
+                    <span className="text-xs text-muted-foreground tabular-nums">
+                      {formatDate(r.redeemed_at, locale)}
+                    </span>
+                  ) : null}
+                  <Badge
+                    variant="secondary"
+                    className="rounded-full font-normal"
+                  >
+                    {r.status === "active"
+                      ? t("rewardActive")
+                      : t("rewardRedeemed")}
+                  </Badge>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </FadeIn>
+
+      {/* A'zolar */}
+      <FadeIn delay={0.14}>
         <h2 className="eyebrow mb-3">{t("members")}</h2>
         {members.length === 0 ? (
           <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted-foreground">

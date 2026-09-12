@@ -62,7 +62,29 @@
     },
     "panel": {
       "profile": "Profil",
-      "bookings": "Meine Reservierungen"
+      "bookings": "Meine Reservierungen",
+      "points": "Meine Punkte"
+    },
+    "points": {
+      "heading": "Meine Punkte",
+      "intro": "Punkte sammeln Sie pro Restaurant. Bei {threshold} Punkten erhalten Sie automatisch einen Rabattgutschein.",
+      "none": "Noch keine Punkte.",
+      "noneHint": "Bei Ihrem ersten Besuch beginnt das Sammeln — das Restaurant bestätigt ihn vor Ort.",
+      "discover": "Restaurants entdecken",
+      "progress": "{points} von {threshold} Punkten",
+      "almost": "Noch {missing} bis zum nächsten Gutschein",
+      "rewardsTitle": "Ihre Gutscheine",
+      "rewardCode": "Gutscheincode",
+      "rewardHint": "Zeigen Sie diesen Code im Restaurant. Er wird dort bestätigt.",
+      "rewardValue": "{percent}% Rabatt",
+      "noExpiry": "Ohne Ablaufdatum",
+      "redeemedOn": "Eingelöst am {date}",
+      "status": {
+        "active": "Gültig",
+        "redeemed": "Eingelöst",
+        "expired": "Abgelaufen",
+        "cancelled": "Storniert"
+      }
     },
     "bookings": {
       "heading": "Meine Reservierungen",
@@ -292,6 +314,30 @@
       "enabled": "Treueprogramm aktiv",
       "pointsPerVisit": "Punkte pro Besuch",
       "pointsPerVisitHint": "Wird beim Markieren als „besucht\" automatisch gutgeschrieben.",
+      "threshold": "Punkte für einen Gutschein",
+      "thresholdHint": "Sobald ein Gast diese Punktzahl erreicht, wird automatisch ein Gutschein erstellt und die Punkte werden abgezogen — das Sammeln beginnt von neuem.",
+      "discountPercent": "Rabatt in Prozent",
+      "cycleExample": "Beispiel: {perVisit} Punkt(e) pro Besuch, Gutschein bei {threshold} Punkten — also etwa jeder {visits}. Besuch bringt {percent}% Rabatt.",
+      "redeemTitle": "Gutschein einlösen",
+      "redeemIntro": "Geben Sie den Code ein, den der Gast Ihnen zeigt.",
+      "redeemCode": "Gutscheincode",
+      "redeemSubmit": "Prüfen und einlösen",
+      "redeemChecking": "Wird geprüft …",
+      "redeemSuccess": "Gültig — {percent}% Rabatt gewähren.",
+      "redeemSuccessNamed": "Gültig — {percent}% Rabatt für {name} gewähren.",
+      "rewardsTitle": "Gutscheine",
+      "noRewards": "Noch keine Gutscheine ausgegeben.",
+      "rewardActive": "Gültig",
+      "rewardRedeemed": "Eingelöst",
+      "redeemErrors": {
+        "codeInvalid": "Bitte geben Sie einen Code ein.",
+        "codeNotFound": "Dieser Code ist unbekannt.",
+        "alreadyRedeemed": "Dieser Gutschein wurde bereits eingelöst.",
+        "notActive": "Dieser Gutschein ist nicht gültig.",
+        "expired": "Dieser Gutschein ist abgelaufen.",
+        "noProfile": "Bitte legen Sie zuerst Ihr Restaurantprofil an.",
+        "unknown": "Das hat nicht geklappt. Bitte versuchen Sie es erneut."
+      },
       "save": "Speichern",
       "saving": "Wird gespeichert …",
       "saved": "Gespeichert.",

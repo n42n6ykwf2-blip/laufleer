@@ -45,6 +45,25 @@ export interface Restaurant {
   rejection_reason?: string | null;
   loyalty_enabled?: boolean;
   loyalty_points_per_visit?: number;
+  loyalty_threshold?: number;
+  loyalty_discount_percent?: number;
+}
+
+export type RewardStatus = "active" | "redeemed" | "expired" | "cancelled";
+
+export interface LoyaltyReward {
+  id: string;
+  account_id: string;
+  restaurant_id: string;
+  code: string;
+  discount_percent: number;
+  points_spent: number;
+  status: RewardStatus;
+  expires_at: string | null;
+  redeemed_at: string | null;
+  created_at: string;
+  restaurants?: { name: string; slug: string } | null;
+  loyalty_accounts?: { name: string | null; email: string } | null;
 }
 
 export type RestaurantStatus = "draft" | "pending" | "approved" | "rejected";
