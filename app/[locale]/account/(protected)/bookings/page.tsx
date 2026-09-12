@@ -38,11 +38,24 @@ export default async function MyBookingsPage({
    * (0009 dagi "customer reads own reservations" siyosati).
    * Shuning uchun bu yerda qo'shimcha shart kerak emas.
    */
-  const { data } = await supabase
+  /**
+   * `!left` MUHIM: restoran qatori RLS bo'yicha o'qilmasa (masalan
+   * profil tasdiqdan chiqarilgan bo'lsa), PostgREST ichki birlashma
+   * qilib butun bron qatorini tushirib yuboradi. Chap birlashma bilan
+   * bron ko'rinadi, faqat restoran nomi bo'sh bo'ladi.
+   */
+  const { data, error } = await supabase
     .from("reservations")
-    .select("*, restaurants(name, slug), restaurant_tables(label, capacity)")
+    .select(
+      "*, restaurants!left(name, slug), restaurant_tables!left(label, capacity)"
+    )
     .order("reservation_at", { ascending: false })
     .limit(100);
+
+  // Xatoni jim yutmaymiz — avval shu sabab bo'sh ro'yxat chiqqan edi
+  if (error) {
+    console.error("[laufleer] bronlar so'rovi xato berdi:", error);
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10">
