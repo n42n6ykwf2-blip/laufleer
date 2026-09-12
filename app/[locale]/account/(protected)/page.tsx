@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Mail, Phone } from "lucide-react";
+import { CalendarDays, Mail, Phone } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { AccountNav } from "@/components/account/account-nav";
 import { FadeIn } from "@/components/motion-primitives";
 import { getCurrentCustomer } from "@/lib/customer";
 import type { Locale } from "@/i18n/routing";
@@ -25,6 +28,7 @@ export default async function AccountPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "account.dashboard" });
+  const tp = await getTranslations({ locale, namespace: "account.panel" });
 
   const { user, customer } = await getCurrentCustomer();
   if (!user) redirect(`/${locale}/account/login`);
@@ -33,7 +37,11 @@ export default async function AccountPage({
   if (!customer) redirect(`/${locale}/account/complete`);
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pt-8 pb-16 sm:px-6 sm:pt-12">
+    <div className="mx-auto max-w-2xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10">
+      <div className="mb-8">
+        <AccountNav />
+      </div>
+
       <FadeIn as="header" className="mb-8">
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
           {t("heading")}
@@ -70,10 +78,13 @@ export default async function AccountPage({
         </section>
       </FadeIn>
 
-      <FadeIn delay={0.1}>
-        <p className="mt-6 rounded-lg border border-dashed border-border p-5 text-center text-sm leading-relaxed text-muted-foreground">
-          {t("comingSoon")}
-        </p>
+      <FadeIn delay={0.1} className="mt-6">
+        <Button asChild variant="outline" className="h-11 w-full sm:w-auto">
+          <Link href="/account/bookings">
+            <CalendarDays className="size-4" />
+            {tp("bookings")}
+          </Link>
+        </Button>
       </FadeIn>
     </div>
   );

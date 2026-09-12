@@ -60,6 +60,41 @@
       "submitting": "Wird gespeichert …",
       "pointsFound": "Wir haben bereits gesammelte Punkte zu dieser E-Mail-Adresse gefunden — sie werden Ihrem Konto gutgeschrieben."
     },
+    "panel": {
+      "profile": "Profil",
+      "bookings": "Meine Reservierungen"
+    },
+    "bookings": {
+      "heading": "Meine Reservierungen",
+      "upcoming": "Bevorstehend",
+      "past": "Vergangen",
+      "none": "Keine Reservierungen.",
+      "noneHint": "Sobald Sie einen Tisch reservieren, erscheint er hier.",
+      "discover": "Restaurants entdecken",
+      "party": "Personen",
+      "table": "Tisch",
+      "notes": "Anmerkungen",
+      "cancel": "Reservierung stornieren",
+      "cancelling": "Wird storniert …",
+      "cancelConfirm": "Diese Reservierung wirklich stornieren?",
+      "cancelled": "Die Reservierung wurde storniert.",
+      "tooLateHint": "Zum Stornieren bitte direkt im Restaurant anrufen — die Reservierung beginnt in weniger als {hours} Stunden.",
+      "status": {
+        "pending": "Offen",
+        "confirmed": "Bestätigt",
+        "cancelled": "Storniert",
+        "completed": "Besucht",
+        "no_show": "Nicht erschienen"
+      },
+      "errors": {
+        "notFound": "Diese Reservierung wurde nicht gefunden.",
+        "notCancellable": "Diese Reservierung kann nicht mehr storniert werden.",
+        "alreadyPassed": "Der Zeitpunkt liegt in der Vergangenheit.",
+        "tooLate": "Zu kurzfristig — bitte rufen Sie das Restaurant an.",
+        "notAuthenticated": "Bitte melden Sie sich erneut an.",
+        "unknown": "Das hat nicht geklappt. Bitte versuchen Sie es erneut."
+      }
+    },
     "dashboard": {
       "heading": "Mein Konto",
       "greeting": "Hallo {name}",

@@ -60,6 +60,41 @@
       "submitting": "Saving …",
       "pointsFound": "We found points already collected for this email address — they will be credited to your account."
     },
+    "panel": {
+      "profile": "Profile",
+      "bookings": "My reservations"
+    },
+    "bookings": {
+      "heading": "My reservations",
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "none": "No reservations.",
+      "noneHint": "As soon as you reserve a table, it appears here.",
+      "discover": "Discover restaurants",
+      "party": "guests",
+      "table": "Table",
+      "notes": "Notes",
+      "cancel": "Cancel reservation",
+      "cancelling": "Cancelling …",
+      "cancelConfirm": "Really cancel this reservation?",
+      "cancelled": "The reservation has been cancelled.",
+      "tooLateHint": "To cancel, please call the restaurant directly — the reservation starts in less than {hours} hours.",
+      "status": {
+        "pending": "Open",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "completed": "Visited",
+        "no_show": "No show"
+      },
+      "errors": {
+        "notFound": "This reservation was not found.",
+        "notCancellable": "This reservation can no longer be cancelled.",
+        "alreadyPassed": "That time is in the past.",
+        "tooLate": "Too short notice — please call the restaurant.",
+        "notAuthenticated": "Please sign in again.",
+        "unknown": "That did not work. Please try again."
+      }
+    },
     "dashboard": {
       "heading": "My account",
       "greeting": "Hello {name}",
