@@ -37,7 +37,7 @@ export async function cancelMyReservation(
 
   const { data: reservation } = await admin
     .from("reservations")
-    .select("id, guest_email, status, reservation_at")
+    .select("id, guest_email, status, reservation_at, reward_id")
     .eq("id", parsed.data.id)
     .maybeSingle();
 
@@ -68,6 +68,20 @@ export async function cancelMyReservation(
 
   if (error) return { ok: false, error: "unknown" };
 
+  /**
+   * Chegirma mijozga QAYTADI — bekor qilgani uchun 10 tashrif mehnatini
+   * yo'qotmasligi kerak. `status = 'reserved'` sharti bilan: allaqachon
+   * ishlatilgan (redeemed) chegirma qaytarilmaydi.
+   */
+  if (reservation.reward_id) {
+    await admin
+      .from("loyalty_rewards")
+      .update({ status: "active", reserved_at: null })
+      .eq("id", reservation.reward_id)
+      .eq("status", "reserved");
+  }
+
   revalidatePath("/account/bookings", "page");
+  revalidatePath("/account/points", "page");
   return { ok: true };
 }

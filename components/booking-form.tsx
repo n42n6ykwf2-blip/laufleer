@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import PhoneInput from "react-phone-number-input";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, Ticket } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +46,12 @@ interface Props {
     email?: string;
     phone?: string;
   };
+  /**
+   * Mijozning shu restoran uchun tayyor chegirmasi.
+   * Bo'lsa — formada ko'rsatiladi va bron bilan birga yuboriladi.
+   * Serverda egaligi qayta tekshiriladi.
+   */
+  availableReward?: { id: string; discountPercent: number };
 }
 
 function isoTomorrow(): string {
@@ -61,6 +67,7 @@ export function BookingForm({
   restaurantName,
   restaurantSlug,
   guestDefaults,
+  availableReward,
 }: Props) {
   const t = useTranslations("bookingForm");
   const router = useRouter();
@@ -81,6 +88,7 @@ export function BookingForm({
       date: isoTomorrow(),
       time: "19:00",
       notes: "",
+      rewardId: availableReward?.id,
     },
   });
 
@@ -121,6 +129,23 @@ export function BookingForm({
             {restaurantName}
           </p>
         </div>
+
+        {/* Chegirma — avtomatik qo'llanadi, tugma emas */}
+        {availableReward ? (
+          <div className="flex gap-2.5 rounded-lg border border-primary/30 bg-primary/8 p-3.5">
+            <Ticket className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+            <div className="min-w-0 text-sm leading-relaxed">
+              <p className="font-medium">
+                {t("discountApplied", {
+                  percent: availableReward.discountPercent,
+                })}
+              </p>
+              <p className="mt-0.5 text-muted-foreground">
+                {t("discountHint")}
+              </p>
+            </div>
+          </div>
+        ) : null}
 
         <Separator />
 

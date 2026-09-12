@@ -74,13 +74,14 @@
       "progress": "{points} von {threshold} Punkten",
       "almost": "Noch {missing} bis zum nächsten Gutschein",
       "rewardsTitle": "Ihre Gutscheine",
-      "rewardCode": "Gutscheincode",
-      "rewardHint": "Zeigen Sie diesen Code im Restaurant. Er wird dort bestätigt.",
+      "rewardAuto": "Wird bei Ihrer nächsten Reservierung automatisch angewendet.",
+      "rewardReserved": "Für eine Reservierung vorgemerkt.",
       "rewardValue": "{percent}% Rabatt",
       "noExpiry": "Ohne Ablaufdatum",
       "redeemedOn": "Eingelöst am {date}",
       "status": {
         "active": "Gültig",
+        "reserved": "Vorgemerkt",
         "redeemed": "Eingelöst",
         "expired": "Abgelaufen",
         "cancelled": "Storniert"
@@ -306,7 +307,8 @@
         "completed": "Besucht",
         "no_show": "Nicht erschienen"
       },
-      "pointsAwarded": "{points} Punkte gutgeschrieben."
+      "pointsAwarded": "{points} Punkte gutgeschrieben.",
+      "discount": "{percent}% Rabatt"
     },
     "loyalty": {
       "heading": "Treueprogramm",
@@ -318,26 +320,11 @@
       "thresholdHint": "Sobald ein Gast diese Punktzahl erreicht, wird automatisch ein Gutschein erstellt und die Punkte werden abgezogen — das Sammeln beginnt von neuem.",
       "discountPercent": "Rabatt in Prozent",
       "cycleExample": "Beispiel: {perVisit} Punkt(e) pro Besuch, Gutschein bei {threshold} Punkten — also etwa jeder {visits}. Besuch bringt {percent}% Rabatt.",
-      "redeemTitle": "Gutschein einlösen",
-      "redeemIntro": "Geben Sie den Code ein, den der Gast Ihnen zeigt.",
-      "redeemCode": "Gutscheincode",
-      "redeemSubmit": "Prüfen und einlösen",
-      "redeemChecking": "Wird geprüft …",
-      "redeemSuccess": "Gültig — {percent}% Rabatt gewähren.",
-      "redeemSuccessNamed": "Gültig — {percent}% Rabatt für {name} gewähren.",
       "rewardsTitle": "Gutscheine",
       "noRewards": "Noch keine Gutscheine ausgegeben.",
       "rewardActive": "Gültig",
+      "rewardReserved": "Vorgemerkt",
       "rewardRedeemed": "Eingelöst",
-      "redeemErrors": {
-        "codeInvalid": "Bitte geben Sie einen Code ein.",
-        "codeNotFound": "Dieser Code ist unbekannt.",
-        "alreadyRedeemed": "Dieser Gutschein wurde bereits eingelöst.",
-        "notActive": "Dieser Gutschein ist nicht gültig.",
-        "expired": "Dieser Gutschein ist abgelaufen.",
-        "noProfile": "Bitte legen Sie zuerst Ihr Restaurantprofil an.",
-        "unknown": "Das hat nicht geklappt. Bitte versuchen Sie es erneut."
-      },
       "save": "Speichern",
       "saving": "Wird gespeichert …",
       "saved": "Gespeichert.",
@@ -522,7 +509,9 @@
       "dateInPast": "Bitte wählen Sie einen Zeitpunkt in der Zukunft.",
       "noTableAvailable": "Für diesen Zeitpunkt ist kein passender Tisch frei. Bitte wählen Sie eine andere Uhrzeit oder Personenzahl.",
       "unknown": "Die Reservierung konnte nicht angelegt werden. Bitte versuchen Sie es erneut."
-    }
+    },
+    "discountApplied": "Ihr {percent}% Rabatt wird auf diese Reservierung angewendet.",
+    "discountHint": "Er wurde durch Ihre gesammelten Punkte freigeschaltet."
   },
   "success": {
     "eyebrow": "Bestätigt",

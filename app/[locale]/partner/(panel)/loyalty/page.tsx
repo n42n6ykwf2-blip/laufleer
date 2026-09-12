@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LoyaltySettings } from "@/components/partner/loyalty-settings";
-import { RedeemRewardForm } from "@/components/partner/redeem-reward-form";
 import { FadeIn } from "@/components/motion-primitives";
 import { getOwnedRestaurant } from "@/lib/owner";
 import { formatDate } from "@/lib/format";
@@ -97,11 +96,6 @@ export default async function LoyaltyPage({
         />
       </FadeIn>
 
-      {/* Kodni tasdiqlash */}
-      <FadeIn delay={0.08} className="mb-9">
-        <RedeemRewardForm />
-      </FadeIn>
-
       {/* Berilgan chegirmalar */}
       <FadeIn delay={0.11} className="mb-9">
         <h2 className="eyebrow mb-3">{t("rewardsTitle")}</h2>
@@ -117,10 +111,7 @@ export default async function LoyaltyPage({
                 className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3"
               >
                 <div className="min-w-0">
-                  <span className="font-mono text-sm tracking-widest">
-                    {r.code}
-                  </span>
-                  <span className="ml-2.5 text-sm text-muted-foreground">
+                  <span className="text-sm font-medium text-primary">
                     {r.discount_percent}%
                   </span>
                   {r.loyalty_accounts ? (
@@ -141,7 +132,9 @@ export default async function LoyaltyPage({
                   >
                     {r.status === "active"
                       ? t("rewardActive")
-                      : t("rewardRedeemed")}
+                      : r.status === "reserved"
+                        ? t("rewardReserved")
+                        : t("rewardRedeemed")}
                   </Badge>
                 </div>
               </li>

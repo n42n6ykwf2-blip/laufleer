@@ -5,7 +5,6 @@ import { z } from "zod";
 import { getOwnedRestaurant } from "@/lib/owner";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import {
-  generateRewardCode,
   DEFAULT_LOYALTY_THRESHOLD,
   DEFAULT_DISCOUNT_PERCENT,
 } from "@/lib/loyalty";
@@ -96,14 +95,21 @@ async function awardPoints(
   let rewardsCreated = 0;
   if (threshold > 0) {
     for (let safety = 0; safety < 50 && running >= threshold; safety++) {
-      const inserted = await insertReward(
-        admin,
-        account,
-        restaurantId,
-        threshold,
-        discountPercent
-      );
-      if (!inserted) break; // kod to'qnashuvi tugamasa, balansni buzmaymiz
+      const { data: reward, error: rewardError } = await admin
+        .from("loyalty_rewards")
+        .insert({
+          account_id: account,
+          restaurant_id: restaurantId,
+          discount_percent: discountPercent,
+          points_spent: threshold,
+          status: "active",
+          expires_at: null, // muddatsiz
+        })
+        .select("id")
+        .single();
+
+      // Chegirma yozilmasa balansni ham kamaytirmaymiz — ball yo'qolmasin
+      if (rewardError || !reward) break;
 
       running -= threshold;
       rewardsCreated++;
@@ -114,7 +120,7 @@ async function awardPoints(
         reservation_id: null,
         points: -threshold,
         kind: "redeemed",
-        note: `reward ${inserted}`,
+        note: `reward ${reward.id}`,
       });
     }
   }
@@ -133,31 +139,35 @@ async function awardPoints(
 }
 
 /**
- * Chegirma yozadi. Kod unique — to'qnashsa bir necha marta urinib ko'radi.
- * Muvaffaqiyatda kodni qaytaradi, aks holda null.
+ * Bronga bog'langan chegirmani yangi holatga o'tkazadi.
+ *
+ * "keldi"            -> redeemed (ishlatildi)
+ * bekor / kelmadi    -> active   (mijozga QAYTADI)
+ *
+ * Qaytarish muhim: aks holda bir marta bekor qilgan odam 10 tashrif
+ * mehnatini yo'qotardi.
  */
-async function insertReward(
+async function settleReservationReward(
   admin: ReturnType<typeof createSupabaseAdminClient>,
-  accountId: string,
-  restaurantId: string,
-  pointsSpent: number,
-  discountPercent: number
-): Promise<string | null> {
-  for (let attempt = 0; attempt < 6; attempt++) {
-    const code = generateRewardCode();
-    const { error } = await admin.from("loyalty_rewards").insert({
-      account_id: accountId,
-      restaurant_id: restaurantId,
-      code,
-      discount_percent: discountPercent,
-      points_spent: pointsSpent,
-      status: "active",
-      expires_at: null, // muddatsiz
-    });
-    if (!error) return code;
-    if (error.code !== "23505") return null; // unique'dan boshqa xato
+  rewardId: string | null,
+  outcome: "redeemed" | "returned"
+): Promise<void> {
+  if (!rewardId) return;
+
+  if (outcome === "redeemed") {
+    await admin
+      .from("loyalty_rewards")
+      .update({ status: "redeemed", redeemed_at: new Date().toISOString() })
+      .eq("id", rewardId)
+      .eq("status", "reserved");
+    return;
   }
-  return null;
+
+  await admin
+    .from("loyalty_rewards")
+    .update({ status: "active", reserved_at: null })
+    .eq("id", rewardId)
+    .eq("status", "reserved");
 }
 
 export async function updateReservationStatus(
@@ -173,7 +183,9 @@ export async function updateReservationStatus(
   // RLS egalikni tekshiradi, lekin aniq xato uchun o'zimiz ham o'qiymiz
   const { data: reservation } = await supabase
     .from("reservations")
-    .select("id, restaurant_id, status, guest_email, guest_name, guest_phone")
+    .select(
+      "id, restaurant_id, status, guest_email, guest_name, guest_phone, reward_id"
+    )
     .eq("id", id)
     .maybeSingle();
 
@@ -208,7 +220,18 @@ export async function updateReservationStatus(
     rewardsCreated = result.rewardsCreated;
   }
 
+  // Bronga bog'langan chegirma taqdirini hal qilamiz
+  if (reservation.reward_id) {
+    const admin = createSupabaseAdminClient();
+    if (status === "completed") {
+      await settleReservationReward(admin, reservation.reward_id, "redeemed");
+    } else if (status === "cancelled" || status === "no_show") {
+      await settleReservationReward(admin, reservation.reward_id, "returned");
+    }
+  }
+
   revalidatePath("/partner/reservations", "page");
   revalidatePath("/partner/loyalty", "page");
+  revalidatePath("/account/points", "page");
   return { ok: true, pointsAwarded, rewardsCreated };
 }

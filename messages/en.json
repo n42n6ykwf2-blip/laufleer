@@ -74,13 +74,14 @@
       "progress": "{points} of {threshold} points",
       "almost": "{missing} more until your next voucher",
       "rewardsTitle": "Your vouchers",
-      "rewardCode": "Voucher code",
-      "rewardHint": "Show this code at the restaurant. They confirm it there.",
+      "rewardAuto": "Applied automatically to your next reservation.",
+      "rewardReserved": "Reserved for a booking.",
       "rewardValue": "{percent}% discount",
       "noExpiry": "No expiry date",
       "redeemedOn": "Redeemed on {date}",
       "status": {
         "active": "Valid",
+        "reserved": "Reserved",
         "redeemed": "Redeemed",
         "expired": "Expired",
         "cancelled": "Cancelled"
@@ -306,7 +307,8 @@
         "completed": "Visited",
         "no_show": "No show"
       },
-      "pointsAwarded": "{points} points credited."
+      "pointsAwarded": "{points} points credited.",
+      "discount": "{percent}% discount"
     },
     "loyalty": {
       "heading": "Loyalty programme",
@@ -318,26 +320,11 @@
       "thresholdHint": "As soon as a guest reaches this number, a voucher is created automatically and the points are deducted — collecting starts again.",
       "discountPercent": "Discount in percent",
       "cycleExample": "Example: {perVisit} point(s) per visit, voucher at {threshold} points — so roughly every {visits}. visit earns {percent}% off.",
-      "redeemTitle": "Redeem voucher",
-      "redeemIntro": "Enter the code the guest shows you.",
-      "redeemCode": "Voucher code",
-      "redeemSubmit": "Check and redeem",
-      "redeemChecking": "Checking …",
-      "redeemSuccess": "Valid — grant {percent}% discount.",
-      "redeemSuccessNamed": "Valid — grant {percent}% discount for {name}.",
       "rewardsTitle": "Vouchers",
       "noRewards": "No vouchers issued yet.",
       "rewardActive": "Valid",
+      "rewardReserved": "Reserved",
       "rewardRedeemed": "Redeemed",
-      "redeemErrors": {
-        "codeInvalid": "Please enter a code.",
-        "codeNotFound": "This code is unknown.",
-        "alreadyRedeemed": "This voucher has already been redeemed.",
-        "notActive": "This voucher is not valid.",
-        "expired": "This voucher has expired.",
-        "noProfile": "Please create your restaurant profile first.",
-        "unknown": "That did not work. Please try again."
-      },
       "save": "Save",
       "saving": "Saving …",
       "saved": "Saved.",
@@ -522,7 +509,9 @@
       "dateInPast": "Please choose a time in the future.",
       "noTableAvailable": "No suitable table is free at that time. Please choose another time or party size.",
       "unknown": "The reservation could not be created. Please try again."
-    }
+    },
+    "discountApplied": "Your {percent}% discount will be applied to this reservation.",
+    "discountHint": "It was unlocked by the points you collected."
   },
   "success": {
     "eyebrow": "Confirmed",

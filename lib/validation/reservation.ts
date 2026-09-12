@@ -23,6 +23,8 @@ export const reservationInputSchema = z
     date: z.string().regex(isoDate, "dateInPast"),
     time: z.string().regex(isoTime, "dateInPast"),
     notes: z.string().max(500).optional(),
+    // Chegirma id si — serverda mijozga tegishliligi tekshiriladi
+    rewardId: z.string().uuid().optional(),
   })
   .superRefine((data, ctx) => {
     const phoneBlank = isBlank(data.guestPhone);

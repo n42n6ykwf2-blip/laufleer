@@ -40,7 +40,35 @@ export default async function BookPage({
 
   // Hisob MAJBURIY EMAS — kirgan bo'lsa maydonlarni oldindan to'ldiramiz,
   // kirmagan bo'lsa mehmon oqimi avvalgidek ishlaydi.
-  const { customer } = await getCurrentCustomer();
+  const { supabase: userClient, customer } = await getCurrentCustomer();
+
+  /**
+   * Tayyor chegirma bormi? RLS o'zi filtrlaydi — mijoz faqat o'z
+   * chegirmalarini ko'radi. Mehmonga chegirma qo'llanmaydi: buning
+   * uchun email bo'yicha qidirish kerak bo'lardi va bu "bu emailda
+   * chegirma bormi" ma'lumotini begonaga oshkor qilardi.
+   */
+  let availableReward:
+    | { id: string; discountPercent: number }
+    | undefined;
+
+  if (customer?.loyalty_account_id) {
+    const { data: reward } = await userClient
+      .from("loyalty_rewards")
+      .select("id, discount_percent")
+      .eq("restaurant_id", restaurant.id)
+      .eq("status", "active")
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+
+    if (reward) {
+      availableReward = {
+        id: reward.id,
+        discountPercent: reward.discount_percent,
+      };
+    }
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10">
@@ -77,6 +105,7 @@ export default async function BookPage({
                 }
               : undefined
           }
+          availableReward={availableReward}
         />
       </FadeIn>
     </div>

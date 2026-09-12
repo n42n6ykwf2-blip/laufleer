@@ -49,17 +49,22 @@ export interface Restaurant {
   loyalty_discount_percent?: number;
 }
 
-export type RewardStatus = "active" | "redeemed" | "expired" | "cancelled";
+export type RewardStatus =
+  | "active"
+  | "reserved"
+  | "redeemed"
+  | "expired"
+  | "cancelled";
 
 export interface LoyaltyReward {
   id: string;
   account_id: string;
   restaurant_id: string;
-  code: string;
   discount_percent: number;
   points_spent: number;
   status: RewardStatus;
   expires_at: string | null;
+  reserved_at: string | null;
   redeemed_at: string | null;
   created_at: string;
   restaurants?: { name: string; slug: string } | null;
@@ -154,5 +159,7 @@ export interface Reservation {
   status: ReservationStatus;
   notes: string | null;
   created_at: string;
+  discount_percent: number | null;
+  reward_id: string | null;
   restaurant_tables?: { label: string; capacity: number } | null;
 }

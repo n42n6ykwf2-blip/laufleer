@@ -77,11 +77,19 @@ export function ReservationList({
                 : ""}
             </p>
           </div>
-          <Badge
-            className={cn("rounded-full font-normal", badgeTone[r.status])}
-          >
-            {t(`status.${r.status}` as "status.pending")}
-          </Badge>
+          <div className="flex shrink-0 items-center gap-1.5">
+            {/* Sodiqlik chegirmasi — xodim darhol ko'rishi kerak */}
+            {r.discount_percent ? (
+              <Badge className="rounded-full bg-primary/15 font-medium text-primary">
+                {t("discount", { percent: r.discount_percent })}
+              </Badge>
+            ) : null}
+            <Badge
+              className={cn("rounded-full font-normal", badgeTone[r.status])}
+            >
+              {t(`status.${r.status}` as "status.pending")}
+            </Badge>
+          </div>
         </div>
 
         <p className="text-sm text-muted-foreground">
