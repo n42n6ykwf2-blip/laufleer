@@ -63,7 +63,12 @@ export async function cancelMyReservation(
 
   const { error } = await admin
     .from("reservations")
-    .update({ status: "cancelled" })
+    /**
+     * reward_id ni ham uzamiz: aks holda bekor qilingan bron chegirmani
+     * "band" qilib turadi va reservations_reward_unique indeksi tufayli
+     * qaytgan chegirma bilan yangi bron 409 bilan yiqiladi.
+     */
+    .update({ status: "cancelled", reward_id: null, discount_percent: null })
     .eq("id", reservation.id);
 
   if (error) return { ok: false, error: "unknown" };

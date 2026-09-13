@@ -195,7 +195,14 @@ export async function updateReservationStatus(
 
   const { error } = await supabase
     .from("reservations")
-    .update({ status: status as ReservationStatus })
+    .update({
+      status: status as ReservationStatus,
+      // Bekor/kelmadi: chegirma qaytadi, shuning uchun bog'lanishni uzamiz —
+      // aks holda unique indeks qaytgan chegirmani qayta ishlatishga yo'l qo'ymaydi
+      ...(status === "cancelled" || status === "no_show"
+        ? { reward_id: null, discount_percent: null }
+        : {}),
+    })
     .eq("id", id);
   if (error) return { ok: false, error: "unknown" };
 

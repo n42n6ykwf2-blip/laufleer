@@ -59,3 +59,6 @@ next-env.d.ts
 # OneDrive ularni tiklab qo'ysa ham, repoga qaytmasin.
 supabase/migrations/0002_seed.sql
 supabase/migrations/0004_seed_more.sql
+
+# lokal dev server logi
+.next-dev.log
