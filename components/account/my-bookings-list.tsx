@@ -3,12 +3,15 @@
 import * as React from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { AlertCircle, Check, Loader2, Phone, X } from "lucide-react";
+import { AlertCircle, Check, Loader2, Phone, Star, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cancelMyReservation } from "@/lib/actions/cancel-reservation";
 import { CANCEL_CUTOFF_HOURS } from "@/lib/booking-rules";
+import { StarRating } from "@/components/star-rating";
+import { ReviewForm } from "@/components/account/review-form";
+import { canStillReview, embeddedRating } from "@/lib/reviews";
 import { formatDateTime } from "@/lib/format";
 import type { Reservation, ReservationStatus } from "@/lib/types";
 import type { Locale } from "@/i18n/routing";
@@ -25,6 +28,7 @@ const badgeTone: Record<ReservationStatus, string> = {
 /** Ro'yxatdagi bir bron — restoran ma'lumoti bilan birga */
 export interface BookingRow extends Reservation {
   restaurants?: { name: string; slug: string } | null;
+  reviews?: { rating: number }[] | { rating: number } | null;
 }
 
 export function MyBookingsList({ bookings }: { bookings: BookingRow[] }) {
@@ -35,6 +39,9 @@ export function MyBookingsList({ bookings }: { bookings: BookingRow[] }) {
   const [busyId, setBusyId] = React.useState<string | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [notice, setNotice] = React.useState<string | null>(null);
+  const [reviewingId, setReviewingId] = React.useState<string | null>(null);
+  // Yuborilgan bahoni sahifa qayta yuklanguncha darhol ko'rsatish uchun
+  const [ratedLocal, setRatedLocal] = React.useState<Record<string, number>>({});
 
   const now = Date.now();
   const cutoffMs = CANCEL_CUTOFF_HOURS * 60 * 60 * 1000;
@@ -86,6 +93,54 @@ export function MyBookingsList({ bookings }: { bookings: BookingRow[] }) {
       </div>
     );
   }
+
+  /** "Keldi" belgilangan bron uchun baho bloki */
+  const reviewBlock = (b: BookingRow) => {
+    if (b.status !== "completed") return null;
+
+    const given = ratedLocal[b.id] ?? embeddedRating(b.reviews);
+    if (given) {
+      return (
+        <div className="flex items-center gap-2 text-sm">
+          <span className="text-muted-foreground">{t("yourRating")}</span>
+          <StarRating value={given} label={`${given} / 5`} />
+        </div>
+      );
+    }
+
+    if (!canStillReview(b.reservation_at)) {
+      return (
+        <p className="text-xs text-muted-foreground">{t("windowClosed")}</p>
+      );
+    }
+
+    if (reviewingId === b.id) {
+      return (
+        <ReviewForm
+          reservationId={b.id}
+          onCancel={() => setReviewingId(null)}
+          onDone={(rating) => {
+            setRatedLocal((prev) => ({ ...prev, [b.id]: rating }));
+            setReviewingId(null);
+            setError(null);
+            setNotice(t("reviewThanks"));
+          }}
+        />
+      );
+    }
+
+    return (
+      <Button
+        size="sm"
+        variant="outline"
+        className="h-10"
+        onClick={() => setReviewingId(b.id)}
+      >
+        <Star className="size-3.5" />
+        {t("rate")}
+      </Button>
+    );
+  };
 
   const row = (b: BookingRow) => {
     const startsAt = new Date(b.reservation_at).getTime();
@@ -146,6 +201,8 @@ export function MyBookingsList({ bookings }: { bookings: BookingRow[] }) {
             {t("tooLateHint", { hours: CANCEL_CUTOFF_HOURS })}
           </p>
         ) : null}
+
+        {reviewBlock(b)}
       </li>
     );
   };

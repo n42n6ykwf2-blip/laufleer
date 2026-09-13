@@ -116,6 +116,25 @@
         "tooLate": "Zu kurzfristig — bitte rufen Sie das Restaurant an.",
         "notAuthenticated": "Bitte melden Sie sich erneut an.",
         "unknown": "Das hat nicht geklappt. Bitte versuchen Sie es erneut."
+      },
+      "rate": "Bewerten",
+      "yourRating": "Ihre Bewertung",
+      "ratingLabel": "Wie war Ihr Besuch?",
+      "commentLabel": "Kommentar (optional)",
+      "commentPlaceholder": "Was hat Ihnen gefallen – oder nicht?",
+      "submitReview": "Bewertung senden",
+      "submittingReview": "Wird gesendet …",
+      "cancelReview": "Abbrechen",
+      "windowClosed": "Bewertungszeitraum abgelaufen",
+      "reviewThanks": "Danke für Ihre Bewertung.",
+      "reviewErrors": {
+        "ratingRequired": "Bitte wählen Sie 1 bis 5 Sterne.",
+        "notFound": "Diese Reservierung wurde nicht gefunden.",
+        "notCompleted": "Bewerten ist erst nach dem bestätigten Besuch möglich.",
+        "windowClosed": "Der Bewertungszeitraum ist abgelaufen.",
+        "alreadyReviewed": "Diese Reservierung wurde bereits bewertet.",
+        "notAuthenticated": "Bitte melden Sie sich erneut an.",
+        "unknown": "Das hat nicht geklappt. Bitte versuchen Sie es erneut."
       }
     },
     "dashboard": {
@@ -249,7 +268,8 @@
       "reservations": "Reservierungen",
       "loyalty": "Treueprogramm",
       "needsProfileFirst": "Bitte legen Sie zuerst Ihr Restaurantprofil an.",
-      "toProfile": "Zum Profil"
+      "toProfile": "Zum Profil",
+      "reviews": "Bewertungen"
     },
     "menu": {
       "heading": "Speisekarte",
@@ -410,6 +430,16 @@
       "alreadySubmitted": "Das Profil wurde bereits eingereicht.",
       "slugTaken": "Dieser Name ist bereits vergeben. Bitte wählen Sie einen anderen.",
       "unknown": "Das hat nicht geklappt. Bitte versuchen Sie es erneut."
+    },
+    "reviews": {
+      "heading": "Bewertungen",
+      "intro": "Bewertungen stammen nur von Gästen, deren Besuch Sie als „besucht“ markiert haben. Namen werden nicht angezeigt.",
+      "average": "Durchschnitt",
+      "count": "{count, plural, =1 {1 Bewertung} other {# Bewertungen}}",
+      "none": "Noch keine Bewertungen.",
+      "visitOn": "Besuch am {date}",
+      "writtenOn": "bewertet am {date}",
+      "noComment": "Ohne Kommentar"
     }
   },
   "discover": {
@@ -540,5 +570,14 @@
   "cookies": {
     "message": "Wir verwenden nur technisch notwendige Cookies. Es werden keine Tracking- oder Analyse-Cookies gesetzt.",
     "acknowledge": "Verstanden"
+  },
+  "reviews": {
+    "heading": "Bewertungen",
+    "count": "{count, plural, =1 {1 Bewertung} other {# Bewertungen}}",
+    "tooFew": "Noch zu wenige Bewertungen",
+    "none": "Noch keine Bewertungen.",
+    "verifiedNote": "Nur Gäste, deren Besuch vom Restaurant bestätigt wurde, können eine Bewertung abgeben.",
+    "stars": "{rating} von 5 Sternen",
+    "anonymous": "Gast"
   }
 }

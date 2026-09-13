@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/partner/tables", key: "tables" },
   { href: "/partner/reservations", key: "reservations" },
   { href: "/partner/loyalty", key: "loyalty" },
+  { href: "/partner/reviews", key: "reviews" },
 ] as const;
 
 export function PanelNav() {

@@ -9,6 +9,12 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { MenuSection } from "@/components/menu-section";
 import { OpeningHoursList } from "@/components/opening-hours";
+import {
+  RatingSummary,
+  RestaurantReviews,
+  type PublicReview,
+  type RatingStats,
+} from "@/components/restaurant-reviews";
 import { FadeIn, InView } from "@/components/motion-primitives";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { localizedText, priceLevelSymbol } from "@/lib/format";
@@ -54,10 +60,27 @@ export default async function RestaurantPage({
   if (!r) notFound();
 
   const supabase = await createSupabaseServerClient();
-  const [{ data: categories }, { data: items }] = await Promise.all([
-    supabase.from("menu_categories").select("*").eq("restaurant_id", r.id),
-    supabase.from("menu_items").select("*").eq("restaurant_id", r.id),
-  ]);
+  const [{ data: categories }, { data: items }, ratingRes, reviewsRes] =
+    await Promise.all([
+      supabase.from("menu_categories").select("*").eq("restaurant_id", r.id),
+      supabase.from("menu_items").select("*").eq("restaurant_id", r.id),
+      // Jadval emas, identifikatsiyasiz funksiyalar (0012) — muallif ochilmaydi
+      supabase.rpc("get_restaurant_rating", { p_restaurant_id: r.id }),
+      supabase.rpc("get_restaurant_reviews", {
+        p_restaurant_id: r.id,
+        p_limit: 10,
+      }),
+    ]);
+
+  if (ratingRes.error) {
+    console.error("[laufleer] reyting so'rovi xato:", ratingRes.error);
+  }
+  if (reviewsRes.error) {
+    console.error("[laufleer] sharhlar so'rovi xato:", reviewsRes.error);
+  }
+  const ratingStats = ((ratingRes.data as RatingStats[] | null)?.[0] ??
+    null) as RatingStats | null;
+  const publicReviews = (reviewsRes.data ?? []) as PublicReview[];
 
   const description = localizedText(r.description, locale);
   const price = priceLevelSymbol(r.price_level);
@@ -111,6 +134,8 @@ export default async function RestaurantPage({
           {place ? (
             <p className="mt-2 text-muted-foreground">{place}</p>
           ) : null}
+
+          <RatingSummary stats={ratingStats} locale={locale} />
 
           {description ? (
             <p className="mt-5 max-w-2xl leading-relaxed text-foreground/85">
@@ -190,6 +215,16 @@ export default async function RestaurantPage({
             ) : null}
           </aside>
         </div>
+
+        <Separator className="my-12" />
+
+        <InView>
+          <RestaurantReviews
+            stats={ratingStats}
+            reviews={publicReviews}
+            locale={locale}
+          />
+        </InView>
       </div>
 
       {/* Mobil: pastda yopishib turadigan band qilish paneli */}

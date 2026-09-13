@@ -47,7 +47,7 @@ export default async function MyBookingsPage({
   const { data, error } = await supabase
     .from("reservations")
     .select(
-      "*, restaurants!left(name, slug), restaurant_tables!left(label, capacity)"
+      "*, restaurants!left(name, slug), restaurant_tables!left(label, capacity), reviews!left(rating)"
     )
     .order("reservation_at", { ascending: false })
     .limit(100);

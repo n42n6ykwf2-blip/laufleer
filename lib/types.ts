@@ -80,6 +80,16 @@ export type ReservationStatus =
   | "completed"
   | "no_show";
 
+export interface Review {
+  id: string;
+  reservation_id: string;
+  restaurant_id: string;
+  customer_id: string;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+}
+
 export interface Customer {
   id: string;
   user_id: string;

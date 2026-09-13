@@ -116,6 +116,25 @@
         "tooLate": "Too short notice — please call the restaurant.",
         "notAuthenticated": "Please sign in again.",
         "unknown": "That did not work. Please try again."
+      },
+      "rate": "Rate",
+      "yourRating": "Your rating",
+      "ratingLabel": "How was your visit?",
+      "commentLabel": "Comment (optional)",
+      "commentPlaceholder": "What did you like – or not?",
+      "submitReview": "Send review",
+      "submittingReview": "Sending …",
+      "cancelReview": "Cancel",
+      "windowClosed": "Review period has ended",
+      "reviewThanks": "Thank you for your review.",
+      "reviewErrors": {
+        "ratingRequired": "Please choose 1 to 5 stars.",
+        "notFound": "This reservation was not found.",
+        "notCompleted": "You can review only after your visit has been confirmed.",
+        "windowClosed": "The review period has ended.",
+        "alreadyReviewed": "This reservation has already been reviewed.",
+        "notAuthenticated": "Please sign in again.",
+        "unknown": "That did not work. Please try again."
       }
     },
     "dashboard": {
@@ -249,7 +268,8 @@
       "reservations": "Reservations",
       "loyalty": "Loyalty",
       "needsProfileFirst": "Please create your restaurant profile first.",
-      "toProfile": "Go to profile"
+      "toProfile": "Go to profile",
+      "reviews": "Reviews"
     },
     "menu": {
       "heading": "Menu",
@@ -410,6 +430,16 @@
       "alreadySubmitted": "The profile has already been submitted.",
       "slugTaken": "This name is already taken. Please choose another.",
       "unknown": "That did not work. Please try again."
+    },
+    "reviews": {
+      "heading": "Reviews",
+      "intro": "Reviews come only from guests whose visit you marked as visited. Names are not shown.",
+      "average": "Average",
+      "count": "{count, plural, =1 {1 review} other {# reviews}}",
+      "none": "No reviews yet.",
+      "visitOn": "Visit on {date}",
+      "writtenOn": "reviewed on {date}",
+      "noComment": "No comment"
     }
   },
   "discover": {
@@ -540,5 +570,14 @@
   "cookies": {
     "message": "We only use strictly necessary cookies. No tracking or analytics cookies are set.",
     "acknowledge": "Got it"
+  },
+  "reviews": {
+    "heading": "Reviews",
+    "count": "{count, plural, =1 {1 review} other {# reviews}}",
+    "tooFew": "Not enough reviews yet",
+    "none": "No reviews yet.",
+    "verifiedNote": "Only guests whose visit was confirmed by the restaurant can leave a review.",
+    "stars": "{rating} out of 5 stars",
+    "anonymous": "Guest"
   }
 }
